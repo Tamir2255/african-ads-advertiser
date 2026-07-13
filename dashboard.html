@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advertiser Portal - Management System</title>
+    <script src="https://jsdelivr.net"></script>
+</head>
+<body class="bg-slate-100 flex h-screen text-slate-800">
+
+    <!-- Sidebar Layout Navigation -->
+    <aside class="w-64 bg-slate-900 text-white flex flex-col p-6 space-y-6">
+        <h2 class="text-xl font-black text-blue-400 tracking-wide">AfriAd Admin</h2>
+        <nav class="flex flex-col space-y-3 flex-1">
+            <a href="#" class="bg-blue-600 px-4 py-2.5 rounded-xl font-medium text-sm transition">Campaign Panel</a>
+            <a href="#" class="px-4 py-2.5 rounded-xl font-medium text-sm text-slate-400 hover:bg-slate-800 transition">Billing Ledger</a>
+            <a href="#" class="px-4 py-2.5 rounded-xl font-medium text-sm text-slate-400 hover:bg-slate-800 transition">Targeting Setup</a>
+        </nav>
+        <div class="border-t border-slate-800 pt-4 text-xs text-slate-500">Advertiser ID: #8892</div>
+    </aside>
+
+    <!-- Main Content Workspace -->
+    <main class="flex-1 flex flex-col overflow-y-auto">
+        <header class="bg-white border-b border-slate-200 px-8 py-4 flex justify-between items-center shadow-xs">
+            <h1 class="text-xl font-bold text-slate-900">Campaign Management</h1>
+            <div class="flex items-center space-x-4">
+                <!-- Multi-Currency Wallet Selector Switcher UI -->
+                <select id="currencySelector" class="bg-slate-50 border border-slate-200 rounded-lg p-2 text-sm font-semibold shadow-xs focus:ring-2 focus:ring-blue-500 outline-hidden">
+                    <option value="UGX">Ugandan Shilling (UGX)</option>
+                    <option value="KES">Kenyan Shilling (KES)</option>
+                    <option value="TZS">Tanzanian Shilling (TZS)</option>
+                    <option value="RWF">Rwandan Franc (RWF)</option>
+                    <option value="ZAR">South African Rand (ZAR)</option>
+                </select>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-4 py-2 rounded-xl transition shadow-sm">+ Launch Campaign</button>
+            </div>
+        </header>
+
+        <!-- Dynamic Statistics Row Metrics Dashboard -->
+        <section class="p-8 grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">Account Budget Available</span>
+                <div class="text-2xl font-black text-slate-900 mt-1" id="displayBalance">75,000 UGX</div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">Active Ad Impressions</span>
+                <div class="text-2xl font-black text-slate-900 mt-1">42,891</div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">Total Link Click-Throughs</span>
+                <div class="text-2xl font-black text-emerald-600 mt-1">1,402</div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">Aggregated Cash Outflows</span>
+                <div class="text-2xl font-black text-slate-900 mt-1" id="displaySpent">34,500 UGX</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Multi-Currency Localization State Script Configuration Engine -->
+    <script>
+        const localBalances = {
+            UGX: { bal: "75,000 UGX", spent: "34,500 UGX" },
+            KES: { bal: "2,600 KES", spent: "1,200 KES" },
+            TZS: { bal: "52,000 TZS", spent: "24,000 TZS" },
+            RWF: { bal: "26,000 RWF", spent: "12,000 RWF" },
+            ZAR: { bal: "370 ZAR", spent: "170 ZAR" }
+        };
+
+        const selector = document.getElementById('currencySelector');
+        const balContainer = document.getElementById('displayBalance');
+        const spentContainer = document.getElementById('displaySpent');
+
+        selector.addEventListener('change', (e) => {
+            const selectedCurrency = e.target.value;
+            balContainer.innerText = localBalances[selectedCurrency].bal;
+            spentContainer.innerText = localBalances[selectedCurrency].spent;
+        });
+    </script>
+</body>
+</html>
