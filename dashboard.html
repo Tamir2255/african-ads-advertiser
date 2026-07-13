@@ -7,14 +7,20 @@
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://jsdelivr.net"></script>
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    </style>
+    <script src="https://tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-[#F8FAFC] flex h-screen text-[#0F172A] antialiased">
+<body class="bg-[#F8FAFC] flex h-screen text-[#0F172A] antialiased font-sans">
 
-    <!-- Premium Dashboard Sidebar Navigation -->
+    <!-- Sidebar Navigation -->
     <aside class="w-64 bg-[#0F172A] text-white flex flex-col p-6 border-r border-slate-800">
         <div class="flex items-center space-x-2 pb-6 border-b border-slate-800">
             <span class="bg-blue-600 text-white font-black text-sm px-2.5 py-1.5 rounded-lg">AA</span>
@@ -22,62 +28,55 @@
         </div>
         <nav class="flex flex-col space-y-2 flex-1 mt-6">
             <a href="#" class="bg-blue-600 text-white px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition">📊 Performance Hub</a>
-            <a href="#" class="px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider text-slate-400 hover:bg-slate-800/80 hover:text-white transition">💳 Billing Ledger</a>
-            <a href="#" class="px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider text-slate-400 hover:bg-slate-800/80 hover:text-white transition">🎯 Audience Config</a>
+            <a href="#" class="px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider text-slate-400 hover:bg-slate-800 hover:text-white transition">💳 Billing Ledger</a>
+            <a href="#" class="px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider text-slate-400 hover:bg-slate-800 hover:text-white transition">🎯 Audience Config</a>
         </nav>
         <div class="bg-slate-800/40 p-4 rounded-xl border border-slate-800 text-center">
-            <span class="block text-[10px] text-slate-500 font-bold uppercase tracking-widest">Active Advertiser Profile</span>
+            <span class="block text-[10px] text-slate-500 font-bold uppercase tracking-widest">Active Profile</span>
             <span class="block font-bold text-xs text-blue-400 mt-1">UID-20268892</span>
         </div>
     </aside>
 
-    <!-- Main Dynamic Content Workspace -->
+    <!-- Main Workspace -->
     <main class="flex-1 flex flex-col overflow-y-auto">
         <header class="bg-white border-b border-slate-200 px-8 py-5 flex justify-between items-center">
             <div>
-                <h1 class="text-xl font-black text-slate-900 tracking-tight">Campaign Operations</h1>
-                <p class="text-xs text-slate-400 mt-0.5">Track deployment delivery analytics across target African regions.</p>
+                <h1 class="text-xl font-extrabold text-slate-900 tracking-tight">Campaign Operations</h1>
+                <p class="text-xs text-slate-400 mt-0.5">Track deployment delivery analytics across African regions.</p>
             </div>
             <div class="flex items-center space-x-4">
-                <!-- Dropdown Selector UI Styling -->
-                <select id="currencySelector" class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-700 shadow-2xs focus:ring-2 focus:ring-blue-500/20 outline-hidden cursor-pointer">
+                <select id="currencySelector" class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-700 shadow-sm outline-none cursor-pointer">
                     <option value="UGX">🇺🇬 Ugandan Shilling (UGX)</option>
                     <option value="KES">🇰🇪 Kenyan Shilling (KES)</option>
                     <option value="TZS">🇹🇿 Tanzanian Shilling (TZS)</option>
                     <option value="RWF">🇷🇼 Rwandan Franc (RWF)</option>
                     <option value="ZAR">🇿🇦 South African Rand (ZAR)</option>
                 </select>
-                <a href="create-campaign.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wide px-5 py-3 rounded-xl transition shadow-xs">+ Launch Campaign</a>
+                <a href="create-campaign.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wide px-5 py-3 rounded-xl transition shadow-sm">+ Launch Campaign</a>
             </div>
         </header>
 
-        <!-- Upgraded Analytics Metrics Cards Grid Row -->
+        <!-- Metrics Grid -->
         <section class="p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs flex flex-col justify-between">
-                <span class="text-[10px] text-slate-400 font-black uppercase tracking-widest block">Available Balance</span>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block">Available Balance</span>
                 <div class="text-2xl font-black text-slate-900 mt-2 tracking-tight" id="displayBalance">75,000 UGX</div>
             </div>
-
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs flex flex-col justify-between">
-                <span class="text-[10px] text-slate-400 font-black uppercase tracking-widest block">Global Impressions</span>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block">Global Impressions</span>
                 <div class="text-2xl font-black text-slate-900 mt-2 tracking-tight">42,891</div>
             </div>
-
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs flex flex-col justify-between">
-                <span class="text-[10px] text-slate-400 font-black uppercase tracking-widest block">Verified Outbound Clicks</span>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block">Verified Clicks</span>
                 <div class="text-2xl font-black text-emerald-600 mt-2 tracking-tight">1,402</div>
             </div>
-
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs flex flex-col justify-between">
-                <span class="text-[10px] text-slate-400 font-black uppercase tracking-widest block">Accumulated Cost</span>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block">Accumulated Cost</span>
                 <div class="text-2xl font-black text-slate-900 mt-2 tracking-tight" id="displaySpent">34,500 UGX</div>
             </div>
-
         </section>
     </main>
 
-    <!-- Multi-Currency Localization State Script Configuration Engine -->
     <script>
         const localBalances = {
             UGX: { bal: "75,000 UGX", spent: "34,500 UGX" },

@@ -4,36 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AfriAd | Premium Self-Service Advertising Platform</title>
-    <!-- Modern Google Font for Premium Branding -->
+    <!-- Stable Google Font Integration -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <script src="https://jsdelivr.net"></script>
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    </style>
+    <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Guaranteed Tailwind v3 Engine -->
+    <script src="https://tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-[#F8FAFC] text-[#0F172A] antialiased">
+<body class="bg-[#F8FAFC] text-[#0F172A] antialiased font-sans">
 
     <!-- Premium Navigation Bar -->
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/80 px-6 py-4 flex justify-between items-center">
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4 flex justify-between items-center">
         <div class="flex items-center space-x-2">
-            <span class="bg-blue-600 text-white font-extrabold text-lg px-3 py-1.5 rounded-xl shadow-xs">AfriAd</span>
-            <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded-md border border-slate-200/60 tracking-wider uppercase">Advertisers</span>
+            <span class="bg-blue-600 text-white font-extrabold text-lg px-3 py-1.5 rounded-xl shadow-sm">AfriAd</span>
+            <span class="text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-1 rounded-md border border-slate-200 tracking-wider uppercase">Advertisers</span>
         </div>
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-6">
             <a href="dashboard.html" class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition">Console Login</a>
-            <a href="create-campaign.html" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition shadow-xs">Launch Ad</a>
+            <a href="create-campaign.html" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition shadow-sm">Launch Ad</a>
         </div>
     </nav>
 
     <!-- Modern Hero Grid Section -->
     <header class="max-w-6xl mx-auto px-6 py-20 lg:py-28 text-center relative">
-        <div class="absolute inset-0 bg-radial from-blue-50/60 to-transparent blur-2xl -z-10 transform -translate-y-12"></div>
-        <span class="inline-flex items-center space-x-2 bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1.5 rounded-full border border-blue-100/80 tracking-wide uppercase mb-6">
+        <span class="inline-flex items-center bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1.5 rounded-full border border-blue-100 tracking-wide uppercase mb-6">
             ✨ Engineered for Local African Commerce
         </span>
-        <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-slate-900 leading-tight max-w-4xl mx-auto">
+        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight max-w-4xl mx-auto">
             Scale Your Business Across Africa with <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Mobile Money Ads</span>
         </h1>
         <p class="mt-6 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
@@ -41,7 +47,7 @@
         </p>
     </header>
 
-    <!-- Pricing Section (Upgraded UI Cards) -->
+    <!-- Pricing Section -->
     <section class="max-w-6xl mx-auto px-6 pb-28">
         <div class="text-center mb-16">
             <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">Flexible Local Micro-Budgets</h2>
@@ -51,10 +57,10 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
             
             <!-- Banner Card -->
-            <div class="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-md hover:border-blue-200/80 transition-all duration-300 flex flex-col justify-between group">
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 flex flex-col justify-between">
                 <div>
-                    <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100 group-hover:bg-blue-50 group-hover:border-blue-100 transition-colors">
-                        🌐
+                    <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100">
+                        <span class="text-xl">🌐</span>
                     </div>
                     <h3 class="font-extrabold text-xl text-slate-900 mt-6">Website Banner Placements</h3>
                     <p class="text-sm text-slate-500 mt-2 leading-relaxed">Deliver responsive text and graphics units targeted inside active African blogs and forums.</p>
@@ -67,11 +73,11 @@
             </div>
 
             <!-- Video Ad Card (Featured Accent UI) -->
-            <div class="bg-white p-8 rounded-3xl border-2 border-blue-600 shadow-sm relative flex flex-col justify-between transform md:-translate-y-2 group">
-                <span class="absolute -top-3 left-8 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-xs">Highly Recommended</span>
+            <div class="bg-white p-8 rounded-3xl border-2 border-blue-600 shadow-sm relative flex flex-col justify-between transform md:-translate-y-2">
+                <span class="absolute -top-3 left-8 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-sm">Highly Recommended</span>
                 <div>
                     <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center border border-blue-100">
-                        📺
+                        <span class="text-xl">📺</span>
                     </div>
                     <h3 class="font-extrabold text-xl text-slate-900 mt-6">Watch & Earn Streaming</h3>
                     <p class="text-sm text-slate-500 mt-2 leading-relaxed">Secure 100% user retention. Our users view your video uninterrupted for a full 30 seconds before reward distribution.</p>
@@ -80,14 +86,14 @@
                         <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider block mt-1">Per guaranteed video view</span>
                     </div>
                 </div>
-                <a href="create-campaign.html" class="w-full text-center mt-8 bg-blue-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-blue-700 transition shadow-xs">Launch Video Campaign</a>
+                <a href="create-campaign.html" class="w-full text-center mt-8 bg-blue-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-blue-700 transition shadow-sm">Launch Video Campaign</a>
             </div>
 
             <!-- Social Media Card -->
-            <div class="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-md hover:border-blue-200/80 transition-all duration-300 flex flex-col justify-between group">
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 flex flex-col justify-between">
                 <div>
-                    <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100 group-hover:bg-blue-50 group-hover:border-blue-100 transition-colors">
-                        📱
+                    <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100">
+                        <span class="text-xl">📱</span>
                     </div>
                     <h3 class="font-extrabold text-xl text-slate-900 mt-6">Influencer Amplification</h3>
                     <p class="text-sm text-slate-500 mt-2 leading-relaxed">Pool marketing capital to seamlessly onboard local micro-creators on TikTok, IG, and YouTube.</p>
