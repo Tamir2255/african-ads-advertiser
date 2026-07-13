@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdPlatform | Grow Your Business in Africa</title>
+    <title>AfriAd-advertiser | Best Advertising Platform in Africa</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
@@ -26,11 +26,14 @@
 
     <header class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-slate-100">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-                <div class="bg-brand-primary text-white p-2 rounded-lg">
-                    <i data-lucide="zap" class="w-6 h-6"></i>
+            <div class="flex items-center space-x-3">
+                <div class="bg-brand-primary text-white p-2 rounded-xl flex items-center justify-center relative shadow-sm">
+                    <span class="text-xl font-black tracking-tighter leading-none">AA</span>
+                    <div class="absolute -top-1 -right-1 bg-brand-accent text-brand-dark p-0.5 rounded-full">
+                        <i data-lucide="megaphone" class="w-3 h-3"></i>
+                    </div>
                 </div>
-                <span class="text-xl font-bold tracking-tight text-brand-dark">Ad<span class="text-brand-primary">Platform</span></span>
+                <span class="text-xl font-bold tracking-tight text-brand-dark">AfriAd<span class="text-brand-primary">-advertiser</span></span>
             </div>
             <nav class="hidden md:flex items-center space-x-8 font-medium text-slate-600">
                 <a href="#features" class="hover:text-brand-primary transition-colors">Features</a>
@@ -100,7 +103,7 @@
     <section id="features" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-3xl font-bold text-brand-dark sm:text-4xl">Why Modern Brands Choose Us</h2>
+                <h2 class="text-3xl font-bold text-brand-dark sm:text-4xl">Why Modern Brands Choose AfriAd</h2>
                 <p class="text-slate-600 mt-4">We bridge the gap between businesses and African audiences by maximizing budget efficiency.</p>
             </div>
             
@@ -192,10 +195,12 @@
     <footer class="bg-brand-dark text-slate-400 py-12 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center space-x-2 text-white">
-                <i data-lucide="zap" class="w-5 h-5 text-brand-primary"></i>
-                <span class="font-bold tracking-tight">AdPlatform</span>
+                <div class="bg-brand-primary text-white p-1.5 rounded-lg flex items-center justify-center relative">
+                    <span class="text-xs font-black tracking-tighter">AA</span>
+                </div>
+                <span class="font-bold tracking-tight">AfriAd-advertiser</span>
             </div>
-            <p class="text-sm">&copy; 2026 AdPlatform Africa. All rights reserved.</p>
+            <p class="text-sm">&copy; 2026 AfriAd Africa. All rights reserved.</p>
         </div>
     </footer>
 
@@ -206,7 +211,6 @@
             </button>
 
             <h2 id="modalTitle" class="text-2xl font-bold text-brand-dark mb-6">Create Advertiser Account</h2>
-            
             <div id="authAlert" class="hidden p-3 rounded-xl text-sm mb-4"></div>
 
             <form id="authForm" class="space-y-4">
@@ -214,17 +218,14 @@
                     <label class="block text-sm font-semibold text-slate-700 mb-1">Company / Username</label>
                     <input type="text" id="authUsername" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="e.g., AfricaTech Corp">
                 </div>
-
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-1">Email Address</label>
                     <input type="email" id="authEmail" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="name@company.com">
                 </div>
-
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-1">Password</label>
                     <input type="password" id="authPassword" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="••••••••">
                 </div>
-
                 <button type="submit" id="authSubmitBtn" class="w-full bg-brand-primary text-white py-3.5 rounded-xl font-semibold hover:bg-emerald-600 transition-all shadow-md mt-2">
                     Sign Up
                 </button>
@@ -238,10 +239,10 @@
     </div>
 
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
 
-        // Change this URL to your actual Render domain when you host it publicly
+        // Troubleshooting "Failed to fetch": Ensure your node server is running locally on port 5000!
+        // Swap this value to your Render link (https://afriad-backend.onrender.com/api) when ready to push online.
         const API_BASE_URL = 'http://localhost:5000/api'; 
         let currentMode = 'register'; 
 
@@ -297,7 +298,6 @@
             document.getElementById('authAlert').classList.add('hidden');
         }
 
-        // Handle Form Submission to Backend Server
         document.getElementById('authForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             clearAlert();
@@ -324,27 +324,25 @@
                 const data = await response.json();
 
                 if (!response.ok) {
-                    throw new Error(data.error || 'Something went wrong');
+                    throw new Error(data.error || 'Connection established, but server returned an error.');
                 }
 
                 if (currentMode === 'register') {
-                    showAlert('Registration successful! Switching to login...', true);
+                    showAlert('Account created! Switching to Login...', true);
                     setTimeout(() => switchAuthMode(), 1500);
                 } else {
-                    showAlert('Login successful! Redirecting...', true);
+                    showAlert('Success! Forwarding to your dashboard...', true);
                     
-                    // Store access token locally
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('user', JSON.stringify(data.user));
 
-                    // Route user to upcoming dashboard file
                     setTimeout(() => {
                         window.location.href = '/dashboard.html'; 
                     }, 1000);
                 }
 
             } catch (error) {
-                showAlert(error.message, false);
+                showAlert("Could not connect to backend server. Make sure you ran 'npm run dev' inside your backend project folder.", false);
             }
         });
     </script>
