@@ -38,9 +38,9 @@
                 <a href="#pricing" class="hover:text-brand-primary transition-colors">Pricing</a>
             </nav>
             <div>
-                <a href="#register" class="bg-brand-dark text-white px-5 py-2.5 rounded-xl font-medium hover:bg-slate-800 transition-all shadow-sm">
+                <button onclick="openAuthModal('register')" class="bg-brand-dark text-white px-5 py-2.5 rounded-xl font-medium hover:bg-slate-800 transition-all shadow-sm">
                     Start Advertising
-                </a>
+                </button>
             </div>
         </div>
     </header>
@@ -59,9 +59,9 @@
                     Reach millions of active consumers across the African continent. Benefit from unmatched audience retention, flexible campaigns, and the lowest ad rates in the industry.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 pt-2">
-                    <a href="#register" class="bg-brand-primary text-white text-center px-8 py-4 rounded-xl font-semibold hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-500/20">
+                    <button onclick="openAuthModal('register')" class="bg-brand-primary text-white text-center px-8 py-4 rounded-xl font-semibold hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-500/20">
                         Launch Your Campaign
-                    </a>
+                    </button>
                     <a href="#pricing" class="border border-slate-200 text-slate-700 text-center px-8 py-4 rounded-xl font-semibold hover:bg-slate-50 transition-all">
                         View Low Rates
                     </a>
@@ -87,7 +87,7 @@
                     <div class="bg-slate-800/50 p-4 rounded-xl flex items-center justify-between">
                         <div>
                             <p class="text-xs text-slate-400">Cost Per Click (CPC)</p>
-                            <p class="text-xl font-bold mt-1 text-emerald-400">$0.01 <span class="text-xs text-slate-400 font-normal">avg</span></p>
+                            <p class="text-xl font-bold mt-1 text-emerald-400">$0.005 <span class="text-xs text-slate-400 font-normal">avg</span></p>
                         </div>
                         <i data-lucide="trending-up" class="w-8 h-8 text-brand-primary"></i>
                     </div>
@@ -182,9 +182,9 @@
                     <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Starting at just</p>
                     <p class="text-4xl font-extrabold text-brand-dark">$0.005 <span class="text-sm font-normal text-slate-500">/ action</span></p>
                 </div>
-                <a href="#register" class="w-full sm:w-auto bg-brand-primary text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-emerald-600 transition-all shadow-md">
+                <button onclick="openAuthModal('register')" class="w-full sm:w-auto bg-brand-primary text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-emerald-600 transition-all shadow-md">
                     Create Advertiser Account
-                </a>
+                </button>
             </div>
         </div>
     </section>
@@ -199,8 +199,154 @@
         </div>
     </footer>
 
+    <div id="authModal" class="fixed inset-0 bg-brand-dark/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl relative border border-slate-100">
+            <button onclick="toggleAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <h2 id="modalTitle" class="text-2xl font-bold text-brand-dark mb-6">Create Advertiser Account</h2>
+            
+            <div id="authAlert" class="hidden p-3 rounded-xl text-sm mb-4"></div>
+
+            <form id="authForm" class="space-y-4">
+                <div id="usernameField">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Company / Username</label>
+                    <input type="text" id="authUsername" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="e.g., AfricaTech Corp">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Email Address</label>
+                    <input type="email" id="authEmail" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="name@company.com">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Password</label>
+                    <input type="password" id="authPassword" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="••••••••">
+                </div>
+
+                <button type="submit" id="authSubmitBtn" class="w-full bg-brand-primary text-white py-3.5 rounded-xl font-semibold hover:bg-emerald-600 transition-all shadow-md mt-2">
+                    Sign Up
+                </button>
+            </form>
+
+            <p class="text-sm text-slate-500 text-center mt-6">
+                <span id="modalToggleText">Already have an account?</span>
+                <button onclick="switchAuthMode()" id="modalToggleBtn" class="text-brand-primary font-semibold hover:underline ml-1">Log In</button>
+            </p>
+        </div>
+    </div>
+
     <script>
+        // Initialize Lucide Icons
         lucide.createIcons();
+
+        // Change this URL to your actual Render domain when you host it publicly
+        const API_BASE_URL = 'http://localhost:5000/api'; 
+        let currentMode = 'register'; 
+
+        function toggleAuthModal() {
+            const modal = document.getElementById('authModal');
+            modal.classList.toggle('hidden');
+            clearAlert();
+        }
+
+        function openAuthModal(mode) {
+            currentMode = mode;
+            const modalTitle = document.getElementById('modalTitle');
+            const usernameField = document.getElementById('usernameField');
+            const submitBtn = document.getElementById('authSubmitBtn');
+            const toggleText = document.getElementById('modalToggleText');
+            const toggleBtn = document.getElementById('modalToggleBtn');
+
+            if (mode === 'login') {
+                modalTitle.innerText = 'Welcome Back';
+                usernameField.classList.add('hidden');
+                submitBtn.innerText = 'Log In';
+                toggleText.innerText = "Don't have an account?";
+                toggleBtn.innerText = 'Sign Up';
+            } else {
+                modalTitle.innerText = 'Create Advertiser Account';
+                usernameField.classList.remove('hidden');
+                submitBtn.innerText = 'Sign Up';
+                toggleText.innerText = 'Already have an account?';
+                toggleBtn.innerText = 'Log In';
+            }
+            toggleAuthModal();
+        }
+
+        function switchAuthMode() {
+            const mode = currentMode === 'register' ? 'login' : 'register';
+            toggleAuthModal(); 
+            openAuthModal(mode); 
+        }
+
+        function showAlert(message, isSuccess = false) {
+            const alert = document.getElementById('authAlert');
+            alert.innerText = message;
+            alert.classList.remove('hidden', 'bg-red-50', 'text-red-600', 'bg-emerald-50', 'text-emerald-600');
+            
+            if (isSuccess) {
+                alert.classList.add('bg-emerald-50', 'text-emerald-600');
+            } else {
+                alert.classList.add('bg-red-50', 'text-red-600');
+            }
+        }
+
+        function clearAlert() {
+            document.getElementById('authAlert').classList.add('hidden');
+        }
+
+        // Handle Form Submission to Backend Server
+        document.getElementById('authForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearAlert();
+
+            const username = document.getElementById('authUsername').value;
+            const email = document.getElementById('authEmail').value;
+            const password = document.getElementById('authPassword').value;
+
+            const endpoint = currentMode === 'register' ? '/auth/register' : '/auth/login';
+            
+            const payload = { email, password };
+            if (currentMode === 'register') {
+                payload.username = username;
+                payload.role = 'advertiser'; 
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Something went wrong');
+                }
+
+                if (currentMode === 'register') {
+                    showAlert('Registration successful! Switching to login...', true);
+                    setTimeout(() => switchAuthMode(), 1500);
+                } else {
+                    showAlert('Login successful! Redirecting...', true);
+                    
+                    // Store access token locally
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+
+                    // Route user to upcoming dashboard file
+                    setTimeout(() => {
+                        window.location.href = '/dashboard.html'; 
+                    }, 1000);
+                }
+
+            } catch (error) {
+                showAlert(error.message, false);
+            }
+        });
     </script>
 </body>
 </html>
