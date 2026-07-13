@@ -241,9 +241,10 @@
     <script>
         lucide.createIcons();
 
-        // Troubleshooting "Failed to fetch": Ensure your node server is running locally on port 5000!
-        // Swap this value to your Render link (https://afriad-backend.onrender.com/api) when ready to push online.
-        const API_BASE_URL = 'http://localhost:5000/api'; 
+        // CRITICAL UPDATE: Replace this with your actual live Render Web Service URL!
+        // Example: 'https://afriad-backend.onrender.com/api'
+        const API_BASE_URL = 'https://your-backend-name.onrender.com/api'; 
+        
         let currentMode = 'register'; 
 
         function toggleAuthModal() {
@@ -324,7 +325,7 @@
                 const data = await response.json();
 
                 if (!response.ok) {
-                    throw new Error(data.error || 'Connection established, but server returned an error.');
+                    throw new Error(data.error || 'Server error occurred.');
                 }
 
                 if (currentMode === 'register') {
@@ -342,7 +343,7 @@
                 }
 
             } catch (error) {
-                showAlert("Could not connect to backend server. Retry If It fails Try contacting our support team.", false);
+                showAlert(`Could not connect to AfriAd API. Please check your network or contact our help team. Error: ${error.message}`, false);
             }
         });
     </script>
