@@ -241,8 +241,8 @@
     <script>
         lucide.createIcons();
 
-        // CRITICAL UPDATE: Replace this with your actual live Render Web Service URL!
-        // Example: 'https://afriad-backend.onrender.com/api'
+        // REFRESH THIS LINE: Change this URL to your exact production Render address!
+        // Make sure it includes the /api subroute and has NO trailing slash!
         const API_BASE_URL = 'https://afriad-central-backend.onrender.com/api'; 
         
         let currentMode = 'register'; 
@@ -325,7 +325,7 @@
                 const data = await response.json();
 
                 if (!response.ok) {
-                    throw new Error(data.error || 'Server error occurred.');
+                    throw new Error(data.error || 'Server processing error occurred.');
                 }
 
                 if (currentMode === 'register') {
@@ -343,7 +343,7 @@
                 }
 
             } catch (error) {
-                showAlert(`Could not connect to AfriAd API. Please check your network or contact our help team. Error: ${error.message}`, false);
+                showAlert(`Connection failed. Make sure your live backend API link is correctly pasted inside index.html. Details: ${error.message}`, false);
             }
         });
     </script>
