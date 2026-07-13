@@ -3,65 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grow Your Business - African Ad Network</title>
-    <!-- Tailwind CSS for styling -->
+    <title>AfriAd | Premium Self-Service Advertising Platform</title>
+    <!-- Modern Google Font for Premium Branding -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     <script src="https://jsdelivr.net"></script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-800">
+<body class="bg-[#F8FAFC] text-[#0F172A] antialiased">
 
-    <!-- Navbar -->
-    <nav class="bg-white shadow-xs py-4 px-6 flex justify-between items-center">
-        <h1 class="text-xl font-bold text-blue-600">AfriAd <span class="text-slate-500 text-sm font-normal">Advertisers</span></h1>
-        <a href="#register" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-blue-700">Get Started</a>
+    <!-- Premium Navigation Bar -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/80 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <span class="bg-blue-600 text-white font-extrabold text-lg px-3 py-1.5 rounded-xl shadow-xs">AfriAd</span>
+            <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded-md border border-slate-200/60 tracking-wider uppercase">Advertisers</span>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="dashboard.html" class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition">Console Login</a>
+            <a href="create-campaign.html" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition shadow-xs">Launch Ad</a>
+        </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="max-w-4xl mx-auto text-center py-16 px-4">
-        <h2 class="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
-            Advertise your business across Africa using Mobile Money
-        </h2>
-        <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
-            The cheapest self-service ad platform. Promote your products on local websites, video streams, and TikTok or Instagram creators starting at ultra-low local rates.
+    <!-- Modern Hero Grid Section -->
+    <header class="max-w-6xl mx-auto px-6 py-20 lg:py-28 text-center relative">
+        <div class="absolute inset-0 bg-radial from-blue-50/60 to-transparent blur-2xl -z-10 transform -translate-y-12"></div>
+        <span class="inline-flex items-center space-x-2 bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1.5 rounded-full border border-blue-100/80 tracking-wide uppercase mb-6">
+            ✨ Engineered for Local African Commerce
+        </span>
+        <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-slate-900 leading-tight max-w-4xl mx-auto">
+            Scale Your Business Across Africa with <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Mobile Money Ads</span>
+        </h1>
+        <p class="mt-6 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            The continent's simplest decentralized ad gateway. Instantly push high-converting promotional content to thousands of local blogs, streaming channels, and content creators.
         </p>
     </header>
 
-    <!-- Pricing Grid -->
-    <section class="max-w-5xl mx-auto px-4 pb-20">
-        <h3 class="text-2xl font-bold text-center mb-8">Affordable, Simple Pricing</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Pricing Section (Upgraded UI Cards) -->
+    <section class="max-w-6xl mx-auto px-6 pb-28">
+        <div class="text-center mb-16">
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">Flexible Local Micro-Budgets</h2>
+            <p class="text-slate-500 text-sm mt-2">Zero complex currency conversions. Fund seamlessly via MoMo or card integrations.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
             
-            <!-- Card 1 -->
-            <div class="bg-white p-6 rounded-2xl shadow-xs border border-slate-100 flex flex-col justify-between">
+            <!-- Banner Card -->
+            <div class="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-md hover:border-blue-200/80 transition-all duration-300 flex flex-col justify-between group">
                 <div>
-                    <h4 class="font-bold text-lg text-slate-900">Website Banner Ads</h4>
-                    <p class="text-sm text-slate-500 mt-1">Get direct clicks to your shop or WhatsApp.</p>
-                    <p class="text-3xl font-black text-blue-600 mt-4">112 UGX <span class="text-xs text-slate-400 font-normal">/ click</span></p>
-                    <p class="text-xs text-slate-400 mt-1">(Or 3.9 KES / 78 TZS / 39 RWF)</p>
+                    <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100 group-hover:bg-blue-50 group-hover:border-blue-100 transition-colors">
+                        🌐
+                    </div>
+                    <h3 class="font-extrabold text-xl text-slate-900 mt-6">Website Banner Placements</h3>
+                    <p class="text-sm text-slate-500 mt-2 leading-relaxed">Deliver responsive text and graphics units targeted inside active African blogs and forums.</p>
+                    <div class="mt-6 pt-6 border-t border-slate-100">
+                        <span class="text-3xl font-black text-slate-900 tracking-tight">112 UGX</span>
+                        <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider block mt-1">Per unique verified click</span>
+                    </div>
                 </div>
-                <button class="w-full mt-6 bg-slate-100 text-slate-800 py-2 rounded-xl font-medium text-sm hover:bg-slate-200">Select Banner Ad</button>
+                <a href="create-campaign.html" class="w-full text-center mt-8 bg-slate-50 text-slate-800 py-3 rounded-xl font-bold text-sm border border-slate-200 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all">Get Started</a>
             </div>
 
-            <!-- Card 2 -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border-2 border-blue-500 relative flex flex-col justify-between">
-                <span class="absolute -top-3 left-6 bg-blue-600 text-white text-xs uppercase tracking-widest px-3 py-1 rounded-full font-bold">Popular</span>
+            <!-- Video Ad Card (Featured Accent UI) -->
+            <div class="bg-white p-8 rounded-3xl border-2 border-blue-600 shadow-sm relative flex flex-col justify-between transform md:-translate-y-2 group">
+                <span class="absolute -top-3 left-8 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-xs">Highly Recommended</span>
                 <div>
-                    <h4 class="font-bold text-lg text-slate-900">Watch & Earn Videos</h4>
-                    <p class="text-sm text-slate-500 mt-1">Guaranteed 30-second views on your video.</p>
-                    <p class="text-3xl font-black text-blue-600 mt-4">150 UGX <span class="text-xs text-slate-400 font-normal">/ view</span></p>
-                    <p class="text-xs text-slate-400 mt-1">(Or 5.2 KES / 104 TSh / 52 RWF)</p>
+                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center border border-blue-100">
+                        📺
+                    </div>
+                    <h3 class="font-extrabold text-xl text-slate-900 mt-6">Watch & Earn Streaming</h3>
+                    <p class="text-sm text-slate-500 mt-2 leading-relaxed">Secure 100% user retention. Our users view your video uninterrupted for a full 30 seconds before reward distribution.</p>
+                    <div class="mt-6 pt-6 border-t border-slate-100">
+                        <span class="text-3xl font-black text-blue-600 tracking-tight">150 UGX</span>
+                        <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider block mt-1">Per guaranteed video view</span>
+                    </div>
                 </div>
-                <button class="w-full mt-6 bg-blue-600 text-white py-2 rounded-xl font-medium text-sm hover:bg-blue-700">Create Video Campaign</button>
+                <a href="create-campaign.html" class="w-full text-center mt-8 bg-blue-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-blue-700 transition shadow-xs">Launch Video Campaign</a>
             </div>
 
-            <!-- Card 3 -->
-            <div class="bg-white p-6 rounded-2xl shadow-xs border border-slate-100 flex flex-col justify-between">
+            <!-- Social Media Card -->
+            <div class="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-md hover:border-blue-200/80 transition-all duration-300 flex flex-col justify-between group">
                 <div>
-                    <h4 class="font-bold text-lg text-slate-900">Social Media Repost</h4>
-                    <p class="text-sm text-slate-500 mt-1">TikTok & IG creators post your ad directly.</p>
-                    <p class="text-3xl font-black text-blue-600 mt-4">37,500 UGX <span class="text-xs text-slate-400 font-normal">/ flat</span></p>
-                    <p class="text-xs text-slate-400 mt-1">(Or 1,300 KES / 26,000 TZS / 13,000 RWF)</p>
+                    <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100 group-hover:bg-blue-50 group-hover:border-blue-100 transition-colors">
+                        📱
+                    </div>
+                    <h3 class="font-extrabold text-xl text-slate-900 mt-6">Influencer Amplification</h3>
+                    <p class="text-sm text-slate-500 mt-2 leading-relaxed">Pool marketing capital to seamlessly onboard local micro-creators on TikTok, IG, and YouTube.</p>
+                    <div class="mt-6 pt-6 border-t border-slate-100">
+                        <span class="text-3xl font-black text-slate-900 tracking-tight">37,500 UGX</span>
+                        <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider block mt-1">Flat programmatic pool package</span>
+                    </div>
                 </div>
-                <button class="w-full mt-6 bg-slate-100 text-slate-800 py-2 rounded-xl font-medium text-sm hover:bg-slate-200">Hire Influencers</button>
+                <a href="create-campaign.html" class="w-full text-center mt-8 bg-slate-50 text-slate-800 py-3 rounded-xl font-bold text-sm border border-slate-200 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all">Deploy Assets</a>
             </div>
 
         </div>
