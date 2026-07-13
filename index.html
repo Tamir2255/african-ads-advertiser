@@ -4,109 +4,318 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AfriAd | Premium Self-Service Advertising Platform</title>
-    <!-- Stable Google Font Integration -->
+    <!-- Modern Font Integration -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- Guaranteed Tailwind v3 Engine -->
-    <script src="https://tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
-                }
-            }
+    
+    <!-- Clean, Custom CSS Stylesheet -->
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-    </script>
-</head>
-<body class="bg-[#F8FAFC] text-[#0F172A] antialiased font-sans">
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F8FAFC;
+            color: #0F172A;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Navigation Bar Styling */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-b: 1px solid #E2E8F0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+        }
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-badge {
+            background-color: #2563EB;
+            color: #FFFFFF;
+            font-weight: 800;
+            font-size: 18px;
+            padding: 6px 12px;
+            border-radius: 12px;
+        }
+        .tag-badge {
+            font-size: 10px;
+            font-weight: 700;
+            background-color: #F1F5F9;
+            color: #475569;
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid #E2E8F0;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        .nav-link {
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-link:hover {
+            color: #2563EB;
+        }
+        .btn-primary {
+            background-color: #2563EB;
+            color: #FFFFFF;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #1D4ED8;
+        }
 
-    <!-- Premium Navigation Bar -->
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center space-x-2">
-            <span class="bg-blue-600 text-white font-extrabold text-lg px-3 py-1.5 rounded-xl shadow-sm">AfriAd</span>
-            <span class="text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-1 rounded-md border border-slate-200 tracking-wider uppercase">Advertisers</span>
+        /* Hero Header Section */
+        .hero {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 24px 60px 24px;
+            text-align: center;
+        }
+        .announcement {
+            display: inline-block;
+            background-color: #EFF6FF;
+            color: #1D4ED8;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            border: 1px solid #DBEAFE;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            margin-bottom: 24px;
+        }
+        .hero-title {
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #0F172A;
+            line-height: 1.2;
+            max-width: 800px;
+            margin: 0 auto 24px auto;
+        }
+        @media (min-width: 640px) {
+            .hero-title { font-size: 56px; }
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #2563EB, #4F46E5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-desc {
+            font-size: 16px;
+            color: #475569;
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Pricing Section and Grid Layout */
+        .pricing-section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px 100px 24px;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0F172A;
+        }
+        .section-subtitle {
+            color: #64748B;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+        @media (min-width: 768px) {
+            .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* Pricing Cards Styling */
+        .card {
+            background-color: #FFFFFF;
+            padding: 32px;
+            border-radius: 24px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #BFDBFE;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+        .card-featured {
+            border: 2px solid #2563EB;
+            position: relative;
+        }
+        @media (min-width: 768px) {
+            .card-featured { transform: translateY(-8px); }
+            .card-featured:hover { transform: translateY(-12px); }
+        }
+        .badge-featured {
+            position: absolute;
+            top: -14px;
+            left: 32px;
+            background-color: #2563EB;
+            color: #FFFFFF;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 12px;
+            border-radius: 9999px;
+        }
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            background-color: #F8FAFC;
+            border-radius: 16px;
+            border: 1px solid #F1F5F9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .card-featured .icon-box {
+            background-color: #EFF6FF;
+            border-color: #DBEAFE;
+        }
+        .card-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0F172A;
+            margin-top: 24px;
+        }
+        .card-desc {
+            font-size: 14px;
+            color: #64748B;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+        .price-box {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #F1F5F9;
+        }
+        .price-amount {
+            font-size: 30px;
+            font-weight: 900;
+            color: #0F172A;
+            letter-spacing: -0.03em;
+        }
+        .card-featured .price-amount {
+            color: #2563EB;
+        }
+        .price-unit {
+            font-size: 12px;
+            font-weight: 600;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: block;
+            margin-top: 4px;
+        }
+        .btn-card {
+            display: block;
+            text-align: center;
+            width: 100%;
+            margin-top: 32px;
+            background-color: #F8FAFC;
+            color: #1E293B;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid #E2E8F0;
+            transition: all 0.2s;
+        }
+        .btn-card:hover {
+            background-color: #2563EB;
+            color: #FFFFFF;
+            border-color: #2563EB;
+        }
+        .card-featured .btn-card {
+            background-color: #2563EB;
+            color: #FFFFFF;
+            border-color: #2563EB;
+        }
+        .card-featured .btn-card:hover {
+            background-color: #1D4ED8;
+            border-color: #1D4ED8;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav class="navbar">
+        <div class="logo-group">
+            <span class="logo-badge">AfriAd</span>
+            <span class="tag-badge">Advertisers</span>
         </div>
-        <div class="flex items-center space-x-6">
-            <a href="dashboard.html" class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition">Console Login</a>
-            <a href="create-campaign.html" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition shadow-sm">Launch Ad</a>
+        <div class="nav-links">
+            <a href="dashboard.html" class="nav-link">Console Login</a>
+            <a href="create-campaign.html" class="btn-primary">Launch Ad</a>
         </div>
     </nav>
 
-    <!-- Modern Hero Grid Section -->
-    <header class="max-w-6xl mx-auto px-6 py-20 lg:py-28 text-center relative">
-        <span class="inline-flex items-center bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1.5 rounded-full border border-blue-100 tracking-wide uppercase mb-6">
-            ✨ Engineered for Local African Commerce
-        </span>
-        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight max-w-4xl mx-auto">
-            Scale Your Business Across Africa with <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Mobile Money Ads</span>
-        </h1>
-        <p class="mt-6 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            The continent's simplest decentralized ad gateway. Instantly push high-converting promotional content to thousands of local blogs, streaming channels, and content creators.
-        </p>
+    <!-- Marketing Intro Section -->
+    <header class="hero">
+        <span class="announcement">✨ Engineered for Local African Commerce</span>
+        <h1 class="hero-title">Scale Your Business Across Africa with <span class="gradient-text">Mobile Money Ads</span></h1>
+        <p class="hero-desc">The continent's simplest decentralized ad gateway. Instantly push high-converting promotional content to thousands of local blogs, streaming channels, and content creators.</p>
     </header>
 
-    <!-- Pricing Section -->
-    <section class="max-w-6xl mx-auto px-6 pb-28">
-        <div class="text-center mb-16">
-            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">Flexible Local Micro-Budgets</h2>
-            <p class="text-slate-500 text-sm mt-2">Zero complex currency conversions. Fund seamlessly via MoMo or card integrations.</p>
+    <!-- Offers Section Matrix -->
+    <section class="pricing-section">
+        <div class="section-header">
+            <h2 class="section-title">Flexible Local Micro-Budgets</h2>
+            <p class="section-subtitle">Zero complex currency conversions. Fund seamlessly via MoMo or card integrations.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        <div class="pricing-grid">
             
-            <!-- Banner Card -->
-            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 flex flex-col justify-between">
+            <!-- Standard Web Placement -->
+            <div class="card">
                 <div>
-                    <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100">
-                        <span class="text-xl">🌐</span>
-                    </div>
-                    <h3 class="font-extrabold text-xl text-slate-900 mt-6">Website Banner Placements</h3>
-                    <p class="text-sm text-slate-500 mt-2 leading-relaxed">Deliver responsive text and graphics units targeted inside active African blogs and forums.</p>
-                    <div class="mt-6 pt-6 border-t border-slate-100">
-                        <span class="text-3xl font-black text-slate-900 tracking-tight">112 UGX</span>
-                        <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider block mt-1">Per unique verified click</span>
-                    </div>
-                </div>
-                <a href="create-campaign.html" class="w-full text-center mt-8 bg-slate-50 text-slate-800 py-3 rounded-xl font-bold text-sm border border-slate-200 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all">Get Started</a>
-            </div>
-
-            <!-- Video Ad Card (Featured Accent UI) -->
-            <div class="bg-white p-8 rounded-3xl border-2 border-blue-600 shadow-sm relative flex flex-col justify-between transform md:-translate-y-2">
-                <span class="absolute -top-3 left-8 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-sm">Highly Recommended</span>
-                <div>
-                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center border border-blue-100">
-                        <span class="text-xl">📺</span>
-                    </div>
-                    <h3 class="font-extrabold text-xl text-slate-900 mt-6">Watch & Earn Streaming</h3>
-                    <p class="text-sm text-slate-500 mt-2 leading-relaxed">Secure 100% user retention. Our users view your video uninterrupted for a full 30 seconds before reward distribution.</p>
-                    <div class="mt-6 pt-6 border-t border-slate-100">
-                        <span class="text-3xl font-black text-blue-600 tracking-tight">150 UGX</span>
-                        <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider block mt-1">Per guaranteed video view</span>
-                    </div>
-                </div>
-                <a href="create-campaign.html" class="w-full text-center mt-8 bg-blue-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-blue-700 transition shadow-sm">Launch Video Campaign</a>
-            </div>
-
-            <!-- Social Media Card -->
-            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 flex flex-col justify-between">
-                <div>
-                    <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100">
-                        <span class="text-xl">📱</span>
-                    </div>
-                    <h3 class="font-extrabold text-xl text-slate-900 mt-6">Influencer Amplification</h3>
-                    <p class="text-sm text-slate-500 mt-2 leading-relaxed">Pool marketing capital to seamlessly onboard local micro-creators on TikTok, IG, and YouTube.</p>
-                    <div class="mt-6 pt-6 border-t border-slate-100">
-                        <span class="text-3xl font-black text-slate-900 tracking-tight">37,500 UGX</span>
-                        <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider block mt-1">Flat programmatic pool package</span>
-                    </div>
-                </div>
-                <a href="create-campaign.html" class="w-full text-center mt-8 bg-slate-50 text-slate-800 py-3 rounded-xl font-bold text-sm border border-slate-200 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all">Deploy Assets</a>
-            </div>
-
-        </div>
-    </section>
-
-</body>
-</html>
+                    <div class="icon-box">🌐</div>
+                    <h3 class="card-title">Website Banners</h3>
