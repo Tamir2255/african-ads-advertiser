@@ -3,319 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AfriAd | Premium Self-Service Advertising Platform</title>
-    <!-- Modern Font Integration -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Clean, Custom CSS Stylesheet -->
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+    <title>AdPlatform | Grow Your Business in Africa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            primary: '#10B981', // Emerald Green
+                            dark: '#0F172A',    // Deep Slate
+                            accent: '#F59E0B'  // Amber/Gold
+                        }
+                    }
+                }
+            }
         }
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #F8FAFC;
-            color: #0F172A;
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-        }
-        
-        /* Navigation Bar Styling */
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            background-color: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(8px);
-            border-b: 1px solid #E2E8F0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 24px;
-        }
-        .logo-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .logo-badge {
-            background-color: #2563EB;
-            color: #FFFFFF;
-            font-weight: 800;
-            font-size: 18px;
-            padding: 6px 12px;
-            border-radius: 12px;
-        }
-        .tag-badge {
-            font-size: 10px;
-            font-weight: 700;
-            background-color: #F1F5F9;
-            color: #475569;
-            padding: 4px 8px;
-            border-radius: 6px;
-            border: 1px solid #E2E8F0;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-        .nav-link {
-            font-size: 14px;
-            font-weight: 600;
-            color: #475569;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .nav-link:hover {
-            color: #2563EB;
-        }
-        .btn-primary {
-            background-color: #2563EB;
-            color: #FFFFFF;
-            font-weight: 600;
-            font-size: 14px;
-            padding: 10px 20px;
-            border-radius: 12px;
-            text-decoration: none;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-            transition: background-color 0.2s;
-        }
-        .btn-primary:hover {
-            background-color: #1D4ED8;
-        }
-
-        /* Hero Header Section */
-        .hero {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 80px 24px 60px 24px;
-            text-align: center;
-        }
-        .announcement {
-            display: inline-block;
-            background-color: #EFF6FF;
-            color: #1D4ED8;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 6px 14px;
-            border-radius: 9999px;
-            border: 1px solid #DBEAFE;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-            margin-bottom: 24px;
-        }
-        .hero-title {
-            font-size: 40px;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            color: #0F172A;
-            line-height: 1.2;
-            max-width: 800px;
-            margin: 0 auto 24px auto;
-        }
-        @media (min-width: 640px) {
-            .hero-title { font-size: 56px; }
-        }
-        .gradient-text {
-            background: linear-gradient(to right, #2563EB, #4F46E5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero-desc {
-            font-size: 16px;
-            color: #475569;
-            max-width: 650px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* Pricing Section and Grid Layout */
-        .pricing-section {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px 100px 24px;
-        }
-        .section-header {
-            text-align: center;
-            margin-bottom: 64px;
-        }
-        .section-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #0F172A;
-        }
-        .section-subtitle {
-            color: #64748B;
-            font-size: 14px;
-            margin-top: 8px;
-        }
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 32px;
-        }
-        @media (min-width: 768px) {
-            .pricing-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-
-        /* Pricing Cards Styling */
-        .card {
-            background-color: #FFFFFF;
-            padding: 32px;
-            border-radius: 24px;
-            border: 1px solid #E2E8F0;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: #BFDBFE;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-        }
-        .card-featured {
-            border: 2px solid #2563EB;
-            position: relative;
-        }
-        @media (min-width: 768px) {
-            .card-featured { transform: translateY(-8px); }
-            .card-featured:hover { transform: translateY(-12px); }
-        }
-        .badge-featured {
-            position: absolute;
-            top: -14px;
-            left: 32px;
-            background-color: #2563EB;
-            color: #FFFFFF;
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 4px 12px;
-            border-radius: 9999px;
-        }
-        .icon-box {
-            width: 48px;
-            height: 48px;
-            background-color: #F8FAFC;
-            border-radius: 16px;
-            border: 1px solid #F1F5F9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-        .card-featured .icon-box {
-            background-color: #EFF6FF;
-            border-color: #DBEAFE;
-        }
-        .card-title {
-            font-size: 20px;
-            font-weight: 800;
-            color: #0F172A;
-            margin-top: 24px;
-        }
-        .card-desc {
-            font-size: 14px;
-            color: #64748B;
-            margin-top: 8px;
-            line-height: 1.5;
-        }
-        .price-box {
-            margin-top: 24px;
-            padding-top: 24px;
-            border-top: 1px solid #F1F5F9;
-        }
-        .price-amount {
-            font-size: 30px;
-            font-weight: 900;
-            color: #0F172A;
-            letter-spacing: -0.03em;
-        }
-        .card-featured .price-amount {
-            color: #2563EB;
-        }
-        .price-unit {
-            font-size: 12px;
-            font-weight: 600;
-            color: #94A3B8;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            display: block;
-            margin-top: 4px;
-        }
-        .btn-card {
-            display: block;
-            text-align: center;
-            width: 100%;
-            margin-top: 32px;
-            background-color: #F8FAFC;
-            color: #1E293B;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 700;
-            text-decoration: none;
-            border: 1px solid #E2E8F0;
-            transition: all 0.2s;
-        }
-        .btn-card:hover {
-            background-color: #2563EB;
-            color: #FFFFFF;
-            border-color: #2563EB;
-        }
-        .card-featured .btn-card {
-            background-color: #2563EB;
-            color: #FFFFFF;
-            border-color: #2563EB;
-        }
-        .card-featured .btn-card:hover {
-            background-color: #1D4ED8;
-            border-color: #1D4ED8;
-        }
-    </style>
+    </script>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
-    <!-- Header Navigation -->
-    <nav class="navbar">
-        <div class="logo-group">
-            <span class="logo-badge">AfriAd</span>
-            <span class="tag-badge">Advertisers</span>
+    <header class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="bg-brand-primary text-white p-2 rounded-lg">
+                    <i data-lucide="zap" class="w-6 h-6"></i>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-brand-dark">Ad<span class="text-brand-primary">Platform</span></span>
+            </div>
+            <nav class="hidden md:flex items-center space-x-8 font-medium text-slate-600">
+                <a href="#features" class="hover:text-brand-primary transition-colors">Features</a>
+                <a href="#ad-types" class="hover:text-brand-primary transition-colors">Ad Formats</a>
+                <a href="#pricing" class="hover:text-brand-primary transition-colors">Pricing</a>
+            </nav>
+            <div>
+                <a href="#register" class="bg-brand-dark text-white px-5 py-2.5 rounded-xl font-medium hover:bg-slate-800 transition-all shadow-sm">
+                    Start Advertising
+                </a>
+            </div>
         </div>
-        <div class="nav-links">
-            <a href="dashboard.html" class="nav-link">Console Login</a>
-            <a href="create-campaign.html" class="btn-primary">Launch Ad</a>
-        </div>
-    </nav>
-
-    <!-- Marketing Intro Section -->
-    <header class="hero">
-        <span class="announcement">✨ Engineered for Local African Commerce</span>
-        <h1 class="hero-title">Scale Your Business Across Africa with <span class="gradient-text">Mobile Money Ads</span></h1>
-        <p class="hero-desc">The continent's simplest decentralized ad gateway. Instantly push high-converting promotional content to thousands of local blogs, streaming channels, and content creators.</p>
     </header>
 
-    <!-- Offers Section Matrix -->
-    <section class="pricing-section">
-        <div class="section-header">
-            <h2 class="section-title">Flexible Local Micro-Budgets</h2>
-            <p class="section-subtitle">Zero complex currency conversions. Fund seamlessly via MoMo or card integrations.</p>
-        </div>
-
-        <div class="pricing-grid">
+    <section class="pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-gradient-to-b from-emerald-50/30 to-white">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <div class="inline-flex items-center space-x-2 bg-emerald-50 text-brand-primary px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide">
+                    <i data-lucide="globe" class="w-4 h-4"></i>
+                    <span>#1 Advertisement Platform in Africa</span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-dark leading-tight">
+                    Scale your business with <span class="text-brand-primary">high-impact</span> ads.
+                </h1>
+                <p class="text-lg text-slate-600 max-w-xl">
+                    Reach millions of active consumers across the African continent. Benefit from unmatched audience retention, flexible campaigns, and the lowest ad rates in the industry.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                    <a href="#register" class="bg-brand-primary text-white text-center px-8 py-4 rounded-xl font-semibold hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-500/20">
+                        Launch Your Campaign
+                    </a>
+                    <a href="#pricing" class="border border-slate-200 text-slate-700 text-center px-8 py-4 rounded-xl font-semibold hover:bg-slate-50 transition-all">
+                        View Low Rates
+                    </a>
+                </div>
+            </div>
             
-            <!-- Standard Web Placement -->
-            <div class="card">
-                <div>
-                    <div class="icon-box">🌐</div>
-                    <h3 class="card-title">Website Banners</h3>
+            <div class="relative lg:ml-4">
+                <div class="bg-brand-dark text-white p-6 rounded-2xl shadow-2xl space-y-6 border border-slate-700/50">
+                    <div class="flex justify-between items-center border-b border-slate-700/50 pb-4">
+                        <span class="font-semibold text-slate-400">Campaign Overview</span>
+                        <span class="text-xs bg-emerald-500/20 text-brand-primary px-2.5 py-1 rounded-md font-medium">Live Tracking</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-800/50 p-4 rounded-xl">
+                            <p class="text-xs text-slate-400">Total Impressions</p>
+                            <p class="text-2xl font-bold mt-1 text-white">1.8M+</p>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-xl">
+                            <p class="text-xs text-slate-400">Avg. Click Rate</p>
+                            <p class="text-2xl font-bold mt-1 text-brand-accent">4.2%</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-xl flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-slate-400">Cost Per Click (CPC)</p>
+                            <p class="text-xl font-bold mt-1 text-emerald-400">$0.01 <span class="text-xs text-slate-400 font-normal">avg</span></p>
+                        </div>
+                        <i data-lucide="trending-up" class="w-8 h-8 text-brand-primary"></i>
+                    </div>
+                </div>
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-emerald-400/20 rounded-full blur-3xl -z-10"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-brand-dark sm:text-4xl">Why Modern Brands Choose Us</h2>
+                <p class="text-slate-600 mt-4">We bridge the gap between businesses and African audiences by maximizing budget efficiency.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-2xl bg-slate-50 hover:bg-white border border-transparent hover:border-slate-100 transition-all hover:shadow-xl group">
+                    <div class="w-12 h-12 bg-emerald-100 text-brand-primary rounded-xl flex items-center justify-center group-hover:bg-brand-primary group-hover:text-white transition-all">
+                        <i data-lucide="coins"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mt-6 mb-2 text-brand-dark">Budget-Friendly Pricing</h3>
+                    <p class="text-slate-600">Get the absolute lowest minimum cost per impression or click. Zero hidden fees. Pay only for real engagement.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-slate-50 hover:bg-white border border-transparent hover:border-slate-100 transition-all hover:shadow-xl group">
+                    <div class="w-12 h-12 bg-amber-100 text-brand-accent rounded-xl flex items-center justify-center group-hover:bg-brand-accent group-hover:text-white transition-all">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mt-6 mb-2 text-brand-dark">Massive African Audience</h3>
+                    <p class="text-slate-600">Tap into a highly engaged user base across major regions. Connect instantly with millions of targeted buyers.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-slate-50 hover:bg-white border border-transparent hover:border-slate-100 transition-all hover:shadow-xl group">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all">
+                        <i data-lucide="bar-chart-3"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mt-6 mb-2 text-brand-dark">Instant Analytics</h3>
+                    <p class="text-slate-600">Track impressions, video views, and clicks in real-time. Control budgets and optimize on the fly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ad-types" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-brand-dark sm:text-4xl">We Support Every Type of Business Ad</h2>
+                <p class="text-slate-600 mt-4">Choose the medium that best fits your goals. Our network of thousands of earners will distribute it instantly.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-start space-x-4">
+                    <div class="p-3 bg-red-50 text-red-500 rounded-xl shrink-0">
+                        <i data-lucide="video" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-brand-dark">Video Ads</h4>
+                        <p class="text-sm text-slate-500 mt-1">Get guaranteed video views. Perfect for brand awareness and detailed product walkthroughs.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-start space-x-4">
+                    <div class="p-3 bg-purple-50 text-purple-500 rounded-xl shrink-0">
+                        <i data-lucide="layout" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-brand-dark">Website Banner Placements</h4>
+                        <p class="text-sm text-slate-500 mt-1">Display your banners across thousands of verified blogs and high-traffic niche websites.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-start space-x-4">
+                    <div class="p-3 bg-emerald-50 text-brand-primary rounded-xl shrink-0">
+                        <i data-lucide="share-2" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-brand-dark">Social Media Posts</h4>
+                        <p class="text-sm text-slate-500 mt-1">Have earners post or share your banner directly to their personal WhatsApp, X, or Facebook feeds.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold text-brand-dark sm:text-4xl">Unbeatable Pricing, Incredible ROI</h2>
+            <p class="text-lg text-slate-600 mt-4 max-w-xl mx-auto">
+                No expensive contracts. Fund your wallet with as little money as you want, set your bid, and watch your business scale.
+            </p>
+            <div class="mt-10 inline-flex flex-col sm:flex-row items-center justify-center gap-6 bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                <div class="text-left sm:pr-8 sm:border-r border-slate-200">
+                    <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Starting at just</p>
+                    <p class="text-4xl font-extrabold text-brand-dark">$0.005 <span class="text-sm font-normal text-slate-500">/ action</span></p>
+                </div>
+                <a href="#register" class="w-full sm:w-auto bg-brand-primary text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-emerald-600 transition-all shadow-md">
+                    Create Advertiser Account
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-dark text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center space-x-2 text-white">
+                <i data-lucide="zap" class="w-5 h-5 text-brand-primary"></i>
+                <span class="font-bold tracking-tight">AdPlatform</span>
+            </div>
+            <p class="text-sm">&copy; 2026 AdPlatform Africa. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
