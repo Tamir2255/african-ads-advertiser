@@ -130,11 +130,11 @@
                     </p>
 
                     <div class="inline-flex p-1.5 bg-white rounded-xl border border-slate-200/80 shadow-sm gap-1 mt-4">
-                        <button onclick="updatePricingDisplay(event, 'UGX')" class="curr-tab px-4 py-2 text-sm font-bold rounded-lg bg-brand-dark text-white shadow-sm transition-all">UGX (Uganda)</button>
-                        <button onclick="updatePricingDisplay(event, 'KES')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">KES (Kenya)</button>
-                        <button onclick="updatePricingDisplay(event, 'TZS')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">TZS (Tanzania)</button>
-                        <button onclick="updatePricingDisplay(event, 'RWF')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">RWF (Rwanda)</button>
-                        <button onclick="updatePricingDisplay(event, 'ZAR')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">ZAR (South Africa)</button>
+                        <button onclick="updatePricingDisplay('UGX')" class="curr-tab px-4 py-2 text-sm font-bold rounded-lg bg-brand-dark text-white shadow-sm transition-all">UGX (Uganda)</button>
+                        <button onclick="updatePricingDisplay('KES')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">KES (Kenya)</button>
+                        <button onclick="updatePricingDisplay('TZS')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">TZS (Tanzania)</button>
+                        <button onclick="updatePricingDisplay('RWF')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">RWF (Rwanda)</button>
+                        <button onclick="updatePricingDisplay('ZAR')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">ZAR (South Africa)</button>
                     </div>
                 </div>
 
@@ -217,19 +217,6 @@
     </footer>
 
     <script>
-        // -------------------------------------------------------------
-        // Paste your live backend link here (e.g., https://yourbackend.com)
-        // If left blank '', it automatically runs on http://localhost:5000
-        // -------------------------------------------------------------
-        const LIVE_BACKEND_URL = ''; 
-
-        function getApiUrl(endpoint) {
-            if (LIVE_BACKEND_URL && LIVE_BACKEND_URL !== '') {
-                return `${LIVE_BACKEND_URL}${endpoint}`;
-            }
-            return `http://localhost:5000${endpoint}`;
-        }
-
         const PRICES = {
             UGX: { classified: "7,500", banner: "112", video: "150", social: "37,500" },
             KES: { classified: "260", banner: "3.9", video: "5.2", social: "1,300" },
@@ -238,14 +225,11 @@
             ZAR: { classified: "37", banner: "0.55", video: "0.74", social: "185" }
         };
 
-        function updatePricingDisplay(event, currency) {
+        function updatePricingDisplay(currency) {
             document.querySelectorAll('.curr-tab').forEach(btn => {
                 btn.className = "curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all";
             });
-            
-            if (event && event.currentTarget) {
-                event.currentTarget.className = "curr-tab px-4 py-2 text-sm font-bold rounded-lg bg-brand-dark text-white shadow-sm transition-all";
-            }
+            event.target.className = "curr-tab px-4 py-2 text-sm font-bold rounded-lg bg-brand-dark text-white shadow-sm transition-all";
 
             document.getElementById('p-classified').innerText = PRICES[currency].classified;
             document.getElementById('p-banner').innerText = PRICES[currency].banner;
@@ -300,7 +284,7 @@
             }
 
             try {
-                const response = await fetch(getApiUrl(`/api/auth/${endpoint}`), {
+                const response = await fetch(`/api/auth/${endpoint}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(bodyData)

@@ -213,19 +213,6 @@
     <script>
         let currentUser = null;
 
-        // -------------------------------------------------------------
-        // Paste your live backend link here (e.g., https://yourbackend.com)
-        // If left blank '', it automatically runs on http://localhost:5000
-        // -------------------------------------------------------------
-        const LIVE_BACKEND_URL = ''; 
-
-        function getApiUrl(endpoint) {
-            if (LIVE_BACKEND_URL && LIVE_BACKEND_URL !== '') {
-                return `${LIVE_BACKEND_URL}${endpoint}`;
-            }
-            return `http://localhost:5000${endpoint}`;
-        }
-
         window.addEventListener('DOMContentLoaded', () => {
             const token = localStorage.getItem('token');
             const storedUser = localStorage.getItem('user');
@@ -274,7 +261,7 @@
             }
 
             try {
-                const response = await fetch(getApiUrl(`/api/campaigns/create`), {
+                const response = await fetch(`/api/campaigns/create`, {
                     method: 'POST',
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -325,7 +312,7 @@
             }
 
             try {
-                const response = await fetch(getApiUrl(`/api/payments/deposit`), {
+                const response = await fetch(`/api/payments/deposit`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
