@@ -59,9 +59,10 @@
             </a>
 
             <div class="flex items-center gap-4">
-                <a href="index.html" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-semibold rounded-xl border border-slate-700 transition-all">
-                    ← Back to Landing Page
-                </a>
+                <span id="welcome-user-text" class="text-sm text-slate-400 hidden sm:inline">Loading...</span>
+                <button onclick="handleLogOut()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-semibold rounded-xl border border-slate-700 transition-all">
+                    Log Out
+                </button>
             </div>
         </div>
     </header>
@@ -77,23 +78,23 @@
             <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
                 <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-800">
                     <span class="text-xs text-slate-400 uppercase font-semibold">UGX Wallet</span>
-                    <div class="text-xl sm:text-2xl font-bold text-white mt-1">1,250,000.00</div>
+                    <div class="text-xl sm:text-2xl font-bold text-white mt-1" id="bal-ugx">0.00</div>
                 </div>
                 <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-800">
                     <span class="text-xs text-slate-400 uppercase font-semibold">KES Wallet</span>
-                    <div class="text-xl sm:text-2xl font-bold text-white mt-1">45,000.00</div>
+                    <div class="text-xl sm:text-2xl font-bold text-white mt-1" id="bal-kes">0.00</div>
                 </div>
                 <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-800">
                     <span class="text-xs text-slate-400 uppercase font-semibold">TZS Wallet</span>
-                    <div class="text-xl sm:text-2xl font-bold text-white mt-1">920,000.00</div>
+                    <div class="text-xl sm:text-2xl font-bold text-white mt-1" id="bal-tzs">0.00</div>
                 </div>
                 <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-800">
                     <span class="text-xs text-slate-400 uppercase font-semibold">RWF Wallet</span>
-                    <div class="text-xl sm:text-2xl font-bold text-white mt-1">180,000.00</div>
+                    <div class="text-xl sm:text-2xl font-bold text-white mt-1" id="bal-rwf">0.00</div>
                 </div>
                 <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-800 col-span-2 lg:col-span-1">
                     <span class="text-xs text-slate-400 uppercase font-semibold">ZAR Wallet</span>
-                    <div class="text-xl sm:text-2xl font-bold text-white mt-1">2,400.00</div>
+                    <div class="text-xl sm:text-2xl font-bold text-white mt-1" id="bal-zar">0.00</div>
                 </div>
             </div>
 
@@ -210,18 +211,46 @@
     </footer>
 
     <script>
-        // Display File Names in Custom Upload Area
+        const API_BASE_URL = window.location.origin;
+        let currentUser = null;
+
+        // Session validation engine (Redirects immediately if not logged in)
+        window.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            const storedUser = localStorage.getItem('user');
+
+            if (!token || !storedUser) {
+                alert("Access Denied. Please log in first.");
+                window.location.href = 'index.html';
+                return;
+            }
+
+            currentUser = JSON.parse(storedUser);
+            document.getElementById('welcome-user-text').innerText = `Welcome, ${currentUser.username}`;
+            
+            // Populates balances cleanly using authenticated user payload values
+            document.getElementById('bal-ugx').innerText = parseFloat(currentUser.ugx_balance || 0).toLocaleString(undefined, {minimumFractionDigits: 2});
+            document.getElementById('bal-kes').innerText = parseFloat(currentUser.kes_balance || 0).toLocaleString(undefined, {minimumFractionDigits: 2});
+            document.getElementById('bal-tzs').innerText = parseFloat(currentUser.tzs_balance || 0).toLocaleString(undefined, {minimumFractionDigits: 2});
+            document.getElementById('bal-rwf').innerText = parseFloat(currentUser.rwf_balance || 0).toLocaleString(undefined, {minimumFractionDigits: 2});
+            document.getElementById('bal-zar').innerText = parseFloat(currentUser.zar_balance || 0).toLocaleString(undefined, {minimumFractionDigits: 2});
+        });
+
+        function handleLogOut() {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+
         function previewUploadName(input) {
             const fileName = input.files[0] ? input.files[0].name : "Select a media file to upload";
             document.getElementById('upload-label-text').innerText = fileName;
         }
 
-        // Handle File-based Campaign Posting via Native Multipart Form Data
         async function handleCampaignSubmit(event) {
             event.preventDefault();
 
             const formData = new FormData();
-            formData.append('advertiserId', 1); // Mock user profile
+            formData.append('advertiserId', currentUser.id); // Read verified user ID
             formData.append('campaignType', document.getElementById('form-campaign-type').value);
             formData.append('title', document.getElementById('form-title').value);
             formData.append('targetCountry', document.getElementById('form-country').value);
@@ -234,7 +263,7 @@
             }
 
             try {
-                const response = await fetch('/api/campaigns/create', {
+                const response = await fetch(`${API_BASE_URL}/api/campaigns/create`, {
                     method: 'POST',
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -246,6 +275,15 @@
                 if (response.ok) {
                     alert('Campaign Created Successfully! Pending admin review.');
                     
+                    // Deduct from localized UI view dynamically as well
+                    const cur = data.campaign.currency.toLowerCase();
+                    const targetEl = document.getElementById(`bal-${cur}`);
+                    if(targetEl) {
+                        targetEl.innerText = parseFloat(data.newBalance).toLocaleString(undefined, {minimumFractionDigits: 2});
+                        currentUser[`${cur}_balance`] = data.newBalance;
+                        localStorage.setItem('user', JSON.stringify(currentUser));
+                    }
+
                     const list = document.getElementById('active-campaign-list');
                     const item = document.createElement('div');
                     item.className = "p-4 bg-slate-900 rounded-xl border border-slate-800 flex items-center justify-between";
@@ -266,7 +304,6 @@
             }
         }
 
-        // Handle Local Mobile Money Push Triggers
         async function handleDepositSubmit() {
             const amount = document.getElementById('deposit-amount').value;
             const currency = document.getElementById('deposit-currency').value;
@@ -278,7 +315,7 @@
             }
 
             try {
-                const response = await fetch('/api/payments/deposit', {
+                const response = await fetch(`${API_BASE_URL}/api/payments/deposit`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
