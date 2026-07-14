@@ -63,10 +63,16 @@
         <div class="lg:col-span-2 space-y-8">
             
             <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-4">
-                <h3 class="font-bold text-brand-dark text-lg flex items-center gap-2">
-                    <i data-lucide="wallet" class="text-brand-primary"></i>
-                    <span>Your Multi-Currency Wallets</span>
-                </h3>
+                <div class="flex justify-between items-center">
+                    <h3 class="font-bold text-brand-dark text-lg flex items-center gap-2">
+                        <i data-lucide="wallet" class="text-brand-primary"></i>
+                        <span>Your Multi-Currency Wallets</span>
+                    </h3>
+                    <button onclick="toggleDepositModal()" class="bg-brand-primary hover:bg-emerald-600 text-white text-xs px-3 py-2 rounded-lg font-bold flex items-center gap-1.5 shadow-sm transition-all">
+                        <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+                        Fund Wallet
+                    </button>
+                </div>
                 <div class="grid grid-cols-2 sm:grid-cols-5 gap-3" id="walletsContainer">
                     <div class="bg-slate-50 p-3 rounded-xl text-center border border-slate-100">
                         <p class="text-xs text-slate-400 font-semibold">UGX</p>
@@ -193,12 +199,65 @@
 
     </main>
 
+    <div id="depositModal" class="fixed inset-0 bg-brand-dark/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl relative border border-slate-100">
+            <button onclick="toggleDepositModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <h2 class="text-2xl font-bold text-brand-dark mb-2 flex items-center gap-2">
+                <i data-lucide="smartphone" class="text-brand-primary"></i>
+                <span>Fund Ad Wallet</span>
+            </h2>
+            <p class="text-xs text-slate-500 mb-6">Enter details to initiate a simulated Local Mobile Money prompt.</p>
+
+            <div id="depositAlert" class="hidden p-3 rounded-xl text-sm mb-4"></div>
+
+            <form id="depositForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Currency to Fund</label>
+                    <select id="depositCurrency" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-brand-primary">
+                        <option value="UGX">UGX (Uganda Shilling)</option>
+                        <option value="KES">KES (Kenya Shilling)</option>
+                        <option value="TZS">TZS (Tanzanian Shilling)</option>
+                        <option value="RWF">RWF (Rwandan Franc)</option>
+                        <option value="ZAR">ZAR (South African Rand)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Amount</label>
+                    <input type="number" step="0.01" id="depositAmount" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="e.g., 50000">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Mobile Network</label>
+                        <select id="depositNetwork" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-brand-primary">
+                            <option value="MTN">MTN MoMo</option>
+                            <option value="Airtel">Airtel Money</option>
+                            <option value="M-Pesa">Safaricom M-Pesa</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Phone Number</label>
+                        <input type="text" id="depositPhone" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="256770000000">
+                    </div>
+                </div>
+                <button type="submit" id="depositSubmitBtn" class="w-full bg-brand-primary text-white py-3.5 rounded-xl font-semibold hover:bg-emerald-600 transition-all shadow-md mt-2">
+                    Approve Mock Transaction
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="bg-brand-dark text-slate-400 py-6 border-t border-slate-800 text-center mt-auto">
+        <p class="text-sm">&copy; 2026 AfriAd Africa. All rights reserved.</p>
+    </footer>
+
     <script>
         lucide.createIcons();
 
         const API_BASE_URL = 'https://afriad-central-backend.onrender.com/api';
 
-        // Static Copy of Server's Pricing Matrix
         const PRICING_MATRIX = {
             classified: { UGX: 7500, KES: 260, TZS: 5200, RWF: 2600, ZAR: 37 },
             banner_cpc: { UGX: 112, KES: 3.9, TZS: 78, RWF: 39, ZAR: 0.55 },
@@ -216,9 +275,7 @@
             calculateCost();
         });
 
-        // Fetch Wallet Balances from Local Storage or Backend Database API
         function fetchAndDisplayWallet() {
-            // Simulated local rendering using initial mock states
             document.getElementById('bal-ugx').innerText = parseFloat(user.ugx_balance || 0).toLocaleString();
             document.getElementById('bal-kes').innerText = parseFloat(user.kes_balance || 0).toLocaleString();
             document.getElementById('bal-tzs').innerText = parseFloat(user.tzs_balance || 0).toLocaleString();
@@ -236,7 +293,6 @@
             const currency = currencySelect.value;
             let units = parseInt(unitsInput.value) || 1;
 
-            // Flat-rate rules check
             if (campaignType === 'classified' || campaignType === 'social_repost') {
                 unitsInput.disabled = true;
                 unitsInput.value = 1;
@@ -261,6 +317,12 @@
             window.location.href = 'index.html';
         }
 
+        function toggleDepositModal() {
+            const modal = document.getElementById('depositModal');
+            modal.classList.toggle('hidden');
+            document.getElementById('depositAlert').classList.add('hidden');
+        }
+
         function showAlert(message, isSuccess = false) {
             const alert = document.getElementById('campaignAlert');
             alert.innerText = message;
@@ -272,19 +334,96 @@
             }
         }
 
-        // Form Submission
+        // Handle Deposit Simulation API and Simulated Webhook trigger
+        document.getElementById('depositForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const alertBox = document.getElementById('depositAlert');
+            alertBox.classList.add('hidden');
+
+            const currency = document.getElementById('depositCurrency').value;
+            const amount = parseFloat(document.getElementById('depositAmount').value);
+            const phoneNumber = document.getElementById('depositPhone').value;
+            const network = document.getElementById('depositNetwork').value;
+
+            try {
+                // 1. Send the initial deposit intent to the server
+                const res = await fetch(`${API_BASE_URL}/payments/deposit`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ amount, currency, phoneNumber, network })
+                });
+
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || "Deposit initialization failed.");
+
+                // 2. Trigger the mock platform webhook directly to credit our balance instantly!
+                const webhookRes = await fetch(`${API_BASE_URL}/payments/webhook`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        advertiserId: user.id,
+                        amount: amount,
+                        currency: currency,
+                        status: 'successful'
+                    })
+                });
+
+                const webhookData = await webhookRes.json();
+                if (!webhookRes.ok) throw new Error(webhookData.error || "Mock webhook processing failed.");
+
+                // 3. Update local client UI wallet references
+                const balanceKey = `${currency.toLowerCase()}_balance`;
+                user[balanceKey] = parseFloat(user[balanceKey] || 0) + amount;
+                localStorage.setItem('user', JSON.stringify(user));
+                fetchAndDisplayWallet();
+
+                alertBox.innerText = `Successfully funded ${amount} ${currency}!`;
+                alertBox.classList.remove('hidden', 'bg-red-50', 'text-red-600');
+                alertBox.classList.add('bg-emerald-50', 'text-emerald-600');
+
+                setTimeout(() => {
+                    toggleDepositModal();
+                    document.getElementById('depositForm').reset();
+                }, 1500);
+
+            } catch (err) {
+                alertBox.innerText = err.message;
+                alertBox.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-600');
+                alertBox.classList.add('bg-red-50', 'text-red-600');
+            }
+        });
+
+        // Campaign Submission
         document.getElementById('campaignForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             showAlert('');
 
+            const selectedCurrency = currencySelect.value;
+            const walletKey = `${selectedCurrency.toLowerCase()}_balance`;
+            const currentWalletBalance = parseFloat(user[walletKey] || 0);
+
+            const campaignType = campaignTypeSelect.value;
+            const units = parseInt(unitsInput.value) || 1;
+            const unitRate = PRICING_MATRIX[campaignType][selectedCurrency];
+            const totalCampaignCost = unitRate * units;
+
+            // Strict Validation checks before sending
+            if (totalCampaignCost > currentWalletBalance) {
+                showAlert(`Insufficient wallet balance. You need ${totalCampaignCost.toLocaleString()} ${selectedCurrency}, but only have ${currentWalletBalance.toLocaleString()} ${selectedCurrency}. Please fund your wallet.`);
+                return;
+            }
+
             const payload = {
                 advertiserId: user.id,
-                campaignType: campaignTypeSelect.value,
+                campaignType,
                 title: document.getElementById('campaignTitle').value,
                 mediaUrl: document.getElementById('mediaUrl').value,
                 targetCountry: document.getElementById('targetCountry').value,
-                currency: currencySelect.value,
-                totalUnits: unitsInput.value
+                currency: selectedCurrency,
+                totalUnits: units
             };
 
             try {
@@ -305,8 +444,7 @@
 
                 showAlert('Success! Campaign locked and submitted for admin review.', true);
                 
-                // Dynamically update UI wallet reference balance
-                const walletKey = `${payload.currency.toLowerCase()}_balance`;
+                // Dynamically update UI wallet reference balance from returned server data
                 user[walletKey] = parseFloat(data.newBalance);
                 localStorage.setItem('user', JSON.stringify(user));
                 fetchAndDisplayWallet();
