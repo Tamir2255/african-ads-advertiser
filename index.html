@@ -3,89 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AfriAd - Multicurrency Advertising Platform</title>
+    <title>AfriAd - Unified Premium Multicurrency Advertising Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#FF5A00',
+                            green: '#00B25C',
+                            dark: '#0F172A',
+                            slate: '#1E293B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .double-a-left {
+            transform: skewX(-8deg);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .double-a-right {
+            transform: skewX(-8deg);
+            mix-blend-mode: multiply;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .logo-hover-zone:hover .double-a-left {
+            transform: skewX(-12deg) scale(1.05);
+        }
+        .logo-hover-zone:hover .double-a-right {
+            transform: skewX(-4deg) scale(1.05);
+        }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col font-sans antialiased">
 
-    <header class="bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-orange-600">AfriAd</h1>
-            <button id="auth-nav-btn" onclick="toggleAuthModal('login')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                Sign In
-            </button>
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="index.html" class="logo-hover-zone flex items-center gap-3 cursor-pointer select-none">
+                <div class="relative w-11 h-11 flex items-center justify-center">
+                    <div class="double-a-left absolute left-1 w-6 h-9 border-[3.5px] border-brand-orange rounded-t-xl rounded-b-[3px] border-b-0"></div>
+                    <div class="double-a-right absolute right-1 w-6 h-9 border-[3.5px] border-brand-green rounded-t-xl rounded-b-[3px] border-b-0"></div>
+                    <div class="absolute top-[55%] left-0.5 w-[38px] h-1 bg-gradient-to-r from-brand-orange to-brand-green rounded-full z-10"></div>
+                </div>
+                <span class="text-2xl font-extrabold tracking-tight text-slate-900">
+                    Afri<span class="text-brand-orange">Ad</span>
+                </span>
+            </a>
+
+            <div class="flex items-center gap-4">
+                <button id="auth-nav-btn" onclick="toggleAuthModal('login')" class="bg-brand-dark hover:bg-slate-800 text-white font-semibold px-6 py-2.5 rounded-xl shadow-md shadow-slate-900/10 transition-all duration-200">
+                    Sign In
+                </button>
+            </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-12">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Advertise Across Africa with Local Currencies</h2>
-            <p class="text-lg text-gray-600">Pay with MTN MoMo or Airtel Money. Target users in UGX, KES, TZS, RWF, and ZAR.</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-lg shadow-md max-w-4xl mx-auto mb-12">
-            <h3 class="text-xl font-bold mb-4 text-center">Interactive Pricing Matrix</h3>
-            
-            <div class="flex justify-center space-x-2 mb-6">
-                <button onclick="updatePricingDisplay('UGX')" class="curr-tab bg-blue-600 text-white px-4 py-2 rounded">UGX (Uganda)</button>
-                <button onclick="updatePricingDisplay('KES')" class="curr-tab bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">KES (Kenya)</button>
-                <button onclick="updatePricingDisplay('TZS')" class="curr-tab bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">TZS (Tanzania)</button>
-                <button onclick="updatePricingDisplay('RWF')" class="curr-tab bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">RWF (Rwanda)</button>
-                <button onclick="updatePricingDisplay('ZAR')" class="curr-tab bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">ZAR (South Africa)</button>
+    <main class="flex-1">
+        <section class="relative overflow-hidden pt-20 pb-24 lg:pt-28 lg:pb-32 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="lg:grid lg:grid-cols-12 lg:gap-12 items-center">
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-orange/10 text-brand-orange uppercase tracking-wider">
+                            🚀 High Impact African Advertising
+                        </span>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1]">
+                            The Leading Multicurrency Ad Engine for Growth Teams
+                        </h1>
+                        <p class="text-lg text-slate-500 max-w-2xl mx-auto lg:mx-0">
+                            Create ads, settle automatically using local mobile money in <strong class="text-slate-800">UGX, KES, TZS, RWF, or ZAR</strong>, and watch your brand metrics climb dynamically.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                            <button onclick="toggleAuthModal('register')" class="w-full sm:w-auto px-8 py-4 bg-brand-orange hover:bg-orange-600 text-white font-bold rounded-xl text-center shadow-lg shadow-brand-orange/20 transition-all">
+                                Create Free Account
+                            </button>
+                            <a href="#pricing-calculator" class="w-full sm:w-auto px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-center transition-all">
+                                View Local Pricing Table
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hidden lg:block lg:col-span-5 relative">
+                        <div class="relative w-full h-[400px] bg-slate-100 rounded-3xl border border-slate-200/80 shadow-2xl overflow-hidden flex flex-col p-6">
+                            <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3.5 h-3.5 rounded-full bg-red-400"></div>
+                                    <div class="w-3.5 h-3.5 rounded-full bg-yellow-400"></div>
+                                    <div class="w-3.5 h-3.5 rounded-full bg-green-400"></div>
+                                </div>
+                                <span class="text-xs font-medium text-slate-400">afriad.com/analytics</span>
+                            </div>
+                            <div class="space-y-4 flex-1 justify-center flex flex-col">
+                                <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-100">
+                                    <div class="text-xs text-slate-400 uppercase font-semibold">Active Impressions</div>
+                                    <div class="text-2xl font-bold text-slate-900">485,200+</div>
+                                    <div class="text-xs text-brand-green font-medium">▲ +12.4% vs. yesterday</div>
+                                </div>
+                                <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-xs text-slate-400 uppercase font-semibold">Real-Time Spend</div>
+                                        <div class="text-xl font-bold text-slate-900" id="hero-spend-amount">UGX 1,500,000</div>
+                                    </div>
+                                    <span class="px-3 py-1 bg-brand-green/15 text-brand-green text-xs font-bold rounded-full">ACTIVE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div class="grid md:grid-cols-4 gap-4">
-                <div class="border p-4 rounded text-center">
-                    <h4 class="font-bold text-gray-700">Classified Ad</h4>
-                    <p class="text-2xl font-extrabold text-blue-600 my-2"><span id="p-classified">7,500</span> <span id="c-classified">UGX</span></p>
-                    <span class="text-xs text-gray-500">Per Campaign</span>
+        <section id="pricing-calculator" class="py-20 bg-slate-100 border-y border-slate-200/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
+                <div class="space-y-4 max-w-3xl mx-auto">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                        Transparent Rates Matched to Your Market Currency
+                    </h2>
+                    <p class="text-slate-500">
+                        View our baseline standard pricing. Switch between our local currency options to preview exact prices in your local region.
+                    </p>
+
+                    <div class="inline-flex p-1.5 bg-white rounded-xl border border-slate-200/80 shadow-sm gap-1 mt-4">
+                        <button id="tab-UGX" onclick="updatePricingDisplay('UGX')" class="curr-tab px-4 py-2 text-sm font-bold rounded-lg bg-brand-dark text-white shadow-sm transition-all">UGX (Uganda)</button>
+                        <button id="tab-KES" onclick="updatePricingDisplay('KES')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">KES (Kenya)</button>
+                        <button id="tab-TZS" onclick="updatePricingDisplay('TZS')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">TZS (Tanzania)</button>
+                        <button id="tab-RWF" onclick="updatePricingDisplay('RWF')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">RWF (Rwanda)</button>
+                        <button id="tab-ZAR" onclick="updatePricingDisplay('ZAR')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">ZAR (South Africa)</button>
+                    </div>
                 </div>
-                <div class="border p-4 rounded text-center">
-                    <h4 class="font-bold text-gray-700">Banner (CPC)</h4>
-                    <p class="text-2xl font-extrabold text-blue-600 my-2"><span id="p-banner">112</span> <span id="c-banner">UGX</span></p>
-                    <span class="text-xs text-gray-500">Per Click</span>
-                </div>
-                <div class="border p-4 rounded text-center">
-                    <h4 class="font-bold text-gray-700">Video Ad (CPV)</h4>
-                    <p class="text-2xl font-extrabold text-blue-600 my-2"><span id="p-video">150</span> <span id="c-video">UGX</span></p>
-                    <span class="text-xs text-gray-500">Per View</span>
-                </div>
-                <div class="border p-4 rounded text-center">
-                    <h4 class="font-bold text-gray-700">Social Repost</h4>
-                    <p class="text-2xl font-extrabold text-blue-600 my-2"><span id="p-social">37,500</span> <span id="c-social">UGX</span></p>
-                    <span class="text-xs text-gray-500">Per Repost</span>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                        <div class="text-xs font-bold text-brand-orange uppercase tracking-wider">Format Pack</div>
+                        <h3 class="text-xl font-bold text-slate-900">Classified Ad</h3>
+                        <p class="text-slate-400 text-sm">Best for text classifieds and quick marketplace promotions.</p>
+                        <div class="pt-4 border-t border-slate-100 flex items-baseline gap-1">
+                            <span class="text-3xl font-extrabold text-slate-950" id="p-classified">7,500</span>
+                            <span class="text-sm font-semibold text-slate-400" id="c-classified">UGX</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                        <div class="text-xs font-bold text-blue-500 uppercase tracking-wider">Performance</div>
+                        <h3 class="text-xl font-bold text-slate-900">Banner (CPC)</h3>
+                        <p class="text-slate-400 text-sm">Visual graphic display targeting high-intent web readers.</p>
+                        <div class="pt-4 border-t border-slate-100 flex items-baseline gap-1">
+                            <span class="text-3xl font-extrabold text-slate-950" id="p-banner">112</span>
+                            <span class="text-sm font-semibold text-slate-400" id="c-banner">UGX</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                        <div class="text-xs font-bold text-brand-green uppercase tracking-wider">Premium Content</div>
+                        <h3 class="text-xl font-bold text-slate-900">Video Ad (CPV)</h3>
+                        <p class="text-slate-400 text-sm">Interactive video loops served directly inside platform content streams.</p>
+                        <div class="pt-4 border-t border-slate-100 flex items-baseline gap-1">
+                            <span class="text-3xl font-extrabold text-slate-950" id="p-video">150</span>
+                            <span class="text-sm font-semibold text-slate-400" id="c-video">UGX</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                        <div class="text-xs font-bold text-indigo-500 uppercase tracking-wider">Viral Distribution</div>
+                        <h3 class="text-xl font-bold text-slate-900">Social Repost</h3>
+                        <p class="text-slate-400 text-sm">Automated influencer network broadcast for maximum virality.</p>
+                        <div class="pt-4 border-t border-slate-100 flex items-baseline gap-1">
+                            <span class="text-3xl font-extrabold text-slate-950" id="p-social">37,500</span>
+                            <span class="text-sm font-semibold text-slate-400" id="c-social">UGX</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
 
-    <div id="auth-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center">
-        <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative">
-            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">&times;</button>
+    <div id="auth-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+        <div class="bg-white w-full max-w-md p-8 rounded-3xl shadow-2xl relative border border-slate-100">
+            <button onclick="closeAuthModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
             
-            <div id="auth-login-view">
-                <h3 class="text-2xl font-bold mb-6 text-center">Sign In</h3>
+            <div id="auth-login-view" class="space-y-6">
+                <h3 class="text-2xl font-extrabold text-slate-900">Sign In</h3>
                 <form id="login-form" class="space-y-4" onsubmit="handleAuthSubmit(event, 'login')">
-                    <input type="email" id="login-email" placeholder="Email" required class="w-full p-2 border rounded">
-                    <input type="password" id="login-password" placeholder="Password" required class="w-full p-2 border rounded">
-                    <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Login</button>
+                    <input type="email" id="login-email" placeholder="Email Address" required class="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 focus:ring-2 focus:ring-brand-orange outline-none">
+                    <input type="password" id="login-password" placeholder="Password" required class="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 focus:ring-2 focus:ring-brand-orange outline-none">
+                    <button type="submit" class="w-full h-12 bg-brand-orange hover:bg-orange-600 text-white font-bold rounded-xl shadow-lg">Sign In</button>
                 </form>
-                <p class="mt-4 text-sm text-center text-gray-600">Don't have an account? <button onclick="toggleAuthModal('register')" class="text-blue-600 hover:underline">Register</button></p>
+                <div class="text-sm text-slate-500 text-center">Don't have an account? <button onclick="toggleAuthModal('register')" class="text-brand-orange font-bold">Register here</button></div>
             </div>
 
-            <div id="auth-register-view" class="hidden">
-                <h3 class="text-2xl font-bold mb-6 text-center">Create Account</h3>
+            <div id="auth-register-view" class="space-y-6 hidden">
+                <h3 class="text-2xl font-extrabold text-slate-900">Create Account</h3>
                 <form id="register-form" class="space-y-4" onsubmit="handleAuthSubmit(event, 'register')">
-                    <input type="text" id="register-username" placeholder="Username" required class="w-full p-2 border rounded">
-                    <input type="email" id="register-email" placeholder="Email" required class="w-full p-2 border rounded">
-                    <input type="password" id="register-password" placeholder="Password" required class="w-full p-2 border rounded">
+                    <input type="text" id="register-username" placeholder="Username" required class="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 focus:ring-2 focus:ring-brand-orange outline-none">
+                    <input type="email" id="register-email" placeholder="Email Address" required class="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 focus:ring-2 focus:ring-brand-orange outline-none">
+                    <input type="password" id="register-password" placeholder="Password" required class="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 focus:ring-2 focus:ring-brand-orange outline-none">
                     <input type="hidden" id="register-role" value="advertiser">
-                    <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Register</button>
+                    <button type="submit" class="w-full h-12 bg-brand-orange hover:bg-orange-600 text-white font-bold rounded-xl shadow-lg">Register Account</button>
                 </form>
-                <p class="mt-4 text-sm text-center text-gray-600">Already have an account? <button onclick="toggleAuthModal('login')" class="text-blue-600 hover:underline">Login</button></p>
+                <div class="text-sm text-slate-500 text-center">Already have an account? <button onclick="toggleAuthModal('login')" class="text-brand-orange font-bold">Sign In here</button></div>
             </div>
         </div>
     </div>
+
+    <footer class="bg-slate-100 border-t border-slate-200/60 py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-400 text-sm">
+            <p>&copy; 2026 AfriAd Technologies. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
         const PRICES = {
@@ -97,10 +226,15 @@
         };
 
         function updatePricingDisplay(currency) {
+            // Find tabs cleanly without using raw event.target to eliminate "event is not defined" errors
             document.querySelectorAll('.curr-tab').forEach(btn => {
-                btn.className = "curr-tab bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300";
+                btn.className = "curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all";
             });
-            event.target.className = "curr-tab bg-blue-600 text-white px-4 py-2 rounded";
+            
+            const activeTab = document.getElementById('tab-' + currency);
+            if (activeTab) {
+                activeTab.className = "curr-tab px-4 py-2 text-sm font-bold rounded-lg bg-brand-dark text-white shadow-sm transition-all";
+            }
 
             document.getElementById('p-classified').innerText = PRICES[currency].classified;
             document.getElementById('p-banner').innerText = PRICES[currency].banner;
@@ -111,6 +245,18 @@
             document.getElementById('c-banner').innerText = currency;
             document.getElementById('c-video').innerText = currency;
             document.getElementById('c-social').innerText = currency;
+
+            if (currency === 'UGX') {
+                document.getElementById('hero-spend-amount').innerText = "UGX 1,500,000";
+            } else if (currency === 'KES') {
+                document.getElementById('hero-spend-amount').innerText = "KES 52,000";
+            } else if (currency === 'TZS') {
+                document.getElementById('hero-spend-amount').innerText = "TZS 1,040,000";
+            } else if (currency === 'RWF') {
+                document.getElementById('hero-spend-amount').innerText = "RWF 520,000";
+            } else if (currency === 'ZAR') {
+                document.getElementById('hero-spend-amount').innerText = "ZAR 7,400";
+            }
         }
 
         function toggleAuthModal(mode) {
@@ -124,6 +270,7 @@
             }
         }
 
+        // Standard setup safe backup
         function closeAuthModal() {
             document.getElementById('auth-modal').classList.add('hidden');
         }
