@@ -217,17 +217,12 @@
     </footer>
 
     <script>
-        // SMART AUTO-DETECT RESOLVER
-        // Re-routes connections automatically if opened locally or via dev servers (e.g., Live Server)
-        function getApiUrl(endpoint) {
-            const isLocalOrDevServer = window.location.protocol === 'file:' || 
-                                       ['5500', '5173', '3000'].includes(window.location.port);
-            
-            // Set this to your actual running backend port if it's different from 5000!
-            const BACKEND_PORT = 'http://localhost:5000'; 
-            
-            return isLocalOrDevServer ? `${BACKEND_PORT}${endpoint}` : endpoint;
-        }
+        // -------------------------------------------------------------
+        // CONFIGURATION: POINT THIS TO YOUR LIVE BACKEND DOMAIN
+        // If your backend is live (Render, Heroku, etc.), paste the URL here.
+        // E.g., 'https://afriad-api.onrender.com'
+        // -------------------------------------------------------------
+        const BACKEND_URL = 'https://your-backend-live-domain.com'; 
 
         const PRICES = {
             UGX: { classified: "7,500", banner: "112", video: "150", social: "37,500" },
@@ -296,8 +291,9 @@
             }
 
             try {
-                // Uses smart fallback URLs dynamically
-                const response = await fetch(getApiUrl(`/api/auth/${endpoint}`), {
+                // Resolves the absolute backend address to avoid relative root failures on Vercel
+                const targetUrl = `${BACKEND_URL}/api/auth/${endpoint}`;
+                const response = await fetch(targetUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(bodyData)

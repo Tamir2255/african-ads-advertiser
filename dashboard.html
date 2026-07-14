@@ -213,17 +213,12 @@
     <script>
         let currentUser = null;
 
-        // SMART AUTO-DETECT RESOLVER
-        // Re-routes connections automatically if opened locally or via dev servers (e.g., Live Server)
-        function getApiUrl(endpoint) {
-            const isLocalOrDevServer = window.location.protocol === 'file:' || 
-                                       ['5500', '5173', '3000'].includes(window.location.port);
-            
-            // Set this to your actual running backend port if it's different from 5000!
-            const BACKEND_PORT = 'http://localhost:5000'; 
-            
-            return isLocalOrDevServer ? `${BACKEND_PORT}${endpoint}` : endpoint;
-        }
+        // -------------------------------------------------------------
+        // CONFIGURATION: POINT THIS TO YOUR LIVE BACKEND DOMAIN
+        // If your backend is live (Render, Heroku, etc.), paste the URL here.
+        // E.g., 'https://afriad-api.onrender.com'
+        // -------------------------------------------------------------
+        const BACKEND_URL = 'https://your-backend-live-domain.com'; 
 
         window.addEventListener('DOMContentLoaded', () => {
             const token = localStorage.getItem('token');
@@ -273,7 +268,8 @@
             }
 
             try {
-                const response = await fetch(getApiUrl(`/api/campaigns/create`), {
+                const targetUrl = `${BACKEND_URL}/api/campaigns/create`;
+                const response = await fetch(targetUrl, {
                     method: 'POST',
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -324,7 +320,8 @@
             }
 
             try {
-                const response = await fetch(getApiUrl(`/api/payments/deposit`), {
+                const targetUrl = `${BACKEND_URL}/api/payments/deposit`;
+                const response = await fetch(targetUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
