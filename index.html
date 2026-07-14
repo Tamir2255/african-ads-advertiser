@@ -217,9 +217,6 @@
     </footer>
 
     <script>
-        // Setup API server base address dynamically
-        const API_BASE_URL = 'http://localhost:5000';
-
         const PRICES = {
             UGX: { classified: "7,500", banner: "112", video: "150", social: "37,500" },
             KES: { classified: "260", banner: "3.9", video: "5.2", social: "1,300" },
@@ -257,7 +254,6 @@
             }
         }
 
-        // Modal Management
         function toggleAuthModal(mode) {
             document.getElementById('auth-modal').classList.remove('hidden');
             if (mode === 'login') {
@@ -273,7 +269,6 @@
             document.getElementById('auth-modal').classList.add('hidden');
         }
 
-        // Real Authenticated Call Handlers
         async function handleAuthSubmit(event, endpoint) {
             event.preventDefault();
             const bodyData = {};
@@ -289,7 +284,8 @@
             }
 
             try {
-                const response = await fetch(`${API_BASE_URL}/api/auth/${endpoint}`, {
+                // Reverted to pure relative route paths to align directly with your backend design
+                const response = await fetch(`/api/auth/${endpoint}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(bodyData)
@@ -298,12 +294,11 @@
                 const data = await response.json();
                 if (response.ok) {
                     if (endpoint === 'login') {
-                        // Persist user properties and token
                         localStorage.setItem('token', data.token);
                         localStorage.setItem('user', JSON.stringify(data.user));
                         window.location.href = 'dashboard.html';
                     } else {
-                        alert('Registration successful! Please login.');
+                        alert('Registration successful! Please sign in.');
                         toggleAuthModal('login');
                     }
                 } else {
@@ -315,7 +310,6 @@
             }
         }
 
-        // Check login state on load to update buttons
         window.addEventListener('load', () => {
             const token = localStorage.getItem('token');
             if (token) {

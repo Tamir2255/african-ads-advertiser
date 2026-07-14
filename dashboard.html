@@ -211,10 +211,8 @@
     </footer>
 
     <script>
-        const API_BASE_URL = 'http://localhost:5000';
         let currentUser = null;
 
-        // Session validation engine (Redirects immediately if not logged in)
         window.addEventListener('DOMContentLoaded', () => {
             const token = localStorage.getItem('token');
             const storedUser = localStorage.getItem('user');
@@ -228,7 +226,7 @@
             currentUser = JSON.parse(storedUser);
             document.getElementById('welcome-user-text').innerText = `Welcome, ${currentUser.username}`;
             
-            // Populates balances cleanly using authenticated user payload values
+            // Re-render genuine payload balance properties
             document.getElementById('bal-ugx').innerText = parseFloat(currentUser.ugx_balance || 0).toLocaleString(undefined, {minimumFractionDigits: 2});
             document.getElementById('bal-kes').innerText = parseFloat(currentUser.kes_balance || 0).toLocaleString(undefined, {minimumFractionDigits: 2});
             document.getElementById('bal-tzs').innerText = parseFloat(currentUser.tzs_balance || 0).toLocaleString(undefined, {minimumFractionDigits: 2});
@@ -250,7 +248,7 @@
             event.preventDefault();
 
             const formData = new FormData();
-            formData.append('advertiserId', currentUser.id); // Read verified user ID
+            formData.append('advertiserId', currentUser.id);
             formData.append('campaignType', document.getElementById('form-campaign-type').value);
             formData.append('title', document.getElementById('form-title').value);
             formData.append('targetCountry', document.getElementById('form-country').value);
@@ -263,7 +261,8 @@
             }
 
             try {
-                const response = await fetch(`${API_BASE_URL}/api/campaigns/create`, {
+                // Pointing safely via natural root context pathing
+                const response = await fetch(`/api/campaigns/create`, {
                     method: 'POST',
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -275,7 +274,6 @@
                 if (response.ok) {
                     alert('Campaign Created Successfully! Pending admin review.');
                     
-                    // Deduct from localized UI view dynamically as well
                     const cur = data.campaign.currency.toLowerCase();
                     const targetEl = document.getElementById(`bal-${cur}`);
                     if(targetEl) {
@@ -315,7 +313,8 @@
             }
 
             try {
-                const response = await fetch(`${API_BASE_URL}/api/payments/deposit`, {
+                // Reverted directly back to natural root location fetch execution
+                const response = await fetch(`/api/payments/deposit`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
