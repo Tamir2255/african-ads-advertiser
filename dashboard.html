@@ -214,11 +214,17 @@
         let currentUser = null;
 
         // -------------------------------------------------------------
-        // CONFIGURATION: POINT THIS TO YOUR LIVE BACKEND DOMAIN
-        // If your backend is live (Render, Heroku, etc.), paste the URL here.
-        // E.g., 'https://afriad-api.onrender.com'
+        // Paste your live backend link here (e.g., https://yourbackend.com)
+        // If left blank '', it automatically runs on http://localhost:5000
         // -------------------------------------------------------------
-        const BACKEND_URL = 'https://your-backend-live-domain.com'; 
+        const LIVE_BACKEND_URL = ''; 
+
+        function getApiUrl(endpoint) {
+            if (LIVE_BACKEND_URL && LIVE_BACKEND_URL !== '') {
+                return `${LIVE_BACKEND_URL}${endpoint}`;
+            }
+            return `http://localhost:5000${endpoint}`;
+        }
 
         window.addEventListener('DOMContentLoaded', () => {
             const token = localStorage.getItem('token');
@@ -268,8 +274,7 @@
             }
 
             try {
-                const targetUrl = `${BACKEND_URL}/api/campaigns/create`;
-                const response = await fetch(targetUrl, {
+                const response = await fetch(getApiUrl(`/api/campaigns/create`), {
                     method: 'POST',
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -320,8 +325,7 @@
             }
 
             try {
-                const targetUrl = `${BACKEND_URL}/api/payments/deposit`;
-                const response = await fetch(targetUrl, {
+                const response = await fetch(getApiUrl(`/api/payments/deposit`), {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
