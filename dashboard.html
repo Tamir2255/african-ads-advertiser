@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advertiser Dashboard | AfriAd-advertiser</title>
+    <title>Multi-Currency Advertiser Dashboard | AfriAd</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
@@ -29,7 +29,6 @@
         const user = JSON.parse(localStorage.getItem('user'));
 
         if (!token || !user || user.role !== 'advertiser') {
-            // Kick unauthorized users back to the landing page
             window.location.href = 'index.html';
         }
     </script>
@@ -63,27 +62,42 @@
         
         <div class="lg:col-span-2 space-y-8">
             
-            <div class="bg-gradient-to-r from-brand-dark to-slate-800 text-white p-8 rounded-2xl shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 relative overflow-hidden">
-                <div class="space-y-1 relative z-10">
-                    <p class="text-sm text-slate-300 font-medium uppercase tracking-wider">Available Ad Wallet Balance</p>
-                    <h2 class="text-4xl font-extrabold text-white" id="walletBalance">$0.00</h2>
+            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-4">
+                <h3 class="font-bold text-brand-dark text-lg flex items-center gap-2">
+                    <i data-lucide="wallet" class="text-brand-primary"></i>
+                    <span>Your Multi-Currency Wallets</span>
+                </h3>
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3" id="walletsContainer">
+                    <div class="bg-slate-50 p-3 rounded-xl text-center border border-slate-100">
+                        <p class="text-xs text-slate-400 font-semibold">UGX</p>
+                        <p class="text-sm font-bold text-slate-800" id="bal-ugx">0.00</p>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl text-center border border-slate-100">
+                        <p class="text-xs text-slate-400 font-semibold">KES</p>
+                        <p class="text-sm font-bold text-slate-800" id="bal-kes">0.00</p>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl text-center border border-slate-100">
+                        <p class="text-xs text-slate-400 font-semibold">TZS</p>
+                        <p class="text-sm font-bold text-slate-800" id="bal-tzs">0.00</p>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl text-center border border-slate-100">
+                        <p class="text-xs text-slate-400 font-semibold">RWF</p>
+                        <p class="text-sm font-bold text-slate-800" id="bal-rwf">0.00</p>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl text-center border border-slate-100 col-span-2 sm:col-span-1">
+                        <p class="text-xs text-slate-400 font-semibold">ZAR</p>
+                        <p class="text-sm font-bold text-slate-800" id="bal-zar">0.00</p>
+                    </div>
                 </div>
-                <div class="relative z-10 flex gap-3">
-                    <button class="bg-brand-primary hover:bg-emerald-600 text-white px-5 py-3 rounded-xl font-semibold transition-all shadow-lg shadow-emerald-500/20 flex items-center space-x-2">
-                        <i data-lucide="plus-circle" class="w-4 h-4"></i>
-                        <span>Fund Wallet</span>
-                    </button>
-                </div>
-                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-2xl"></div>
             </div>
 
             <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm space-y-6">
                 <div class="border-b border-slate-100 pb-4">
                     <h3 class="text-xl font-bold text-brand-dark flex items-center gap-2">
                         <i data-lucide="plus-circle" class="text-brand-primary"></i>
-                        <span>Create New Campaign</span>
+                        <span>Create Live Campaign</span>
                     </h3>
-                    <p class="text-sm text-slate-500 mt-1">Set your target budget and choose how earners distribute your campaign.</p>
+                    <p class="text-sm text-slate-500 mt-1">Submit your ad properties. Rates are calculated dynamically based on target currency structures.</p>
                 </div>
 
                 <div id="campaignAlert" class="hidden p-4 rounded-xl text-sm font-semibold"></div>
@@ -91,38 +105,59 @@
                 <form id="campaignForm" class="space-y-5">
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-1">Campaign Title</label>
-                        <input type="text" id="campaignTitle" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="e.g., Summer Sneaker Sale Promo">
+                        <input type="text" id="campaignTitle" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="e.g., Kampala Fashion Expo Banner Promo">
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Ad Format Type</label>
                             <select id="campaignType" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-brand-primary">
-                                <option value="video">Video Ads (Views)</option>
-                                <option value="website_banner">Website Banner Placements</option>
-                                <option value="social_share">Social Media Shares</option>
+                                <option value="classified">Classified Listings (Flat Weekly)</option>
+                                <option value="banner_cpc">Website Banner Ads (CPC)</option>
+                                <option value="video_ad">Video Ads (CPV)</option>
+                                <option value="social_repost">Social Media Repost (Flat Pool)</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Target URL / Video Link</label>
-                            <input type="url" id="campaignUrl" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="https://example.com/promo">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Target Media/Link URL</label>
+                            <input type="url" id="mediaUrl" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="https://example.com/promo-image.jpg">
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Total Campaign Budget ($)</label>
-                            <input type="number" step="0.01" id="campaignTotalBudget" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="e.g., 50.00">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Billing Currency</label>
+                            <select id="currency" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-brand-primary">
+                                <option value="UGX">UGX (Uganda)</option>
+                                <option value="KES">KES (Kenya)</option>
+                                <option value="TZS">TZS (Tanzania)</option>
+                                <option value="RWF">RWF (Rwanda)</option>
+                                <option value="ZAR">ZAR (South Africa)</option>
+                            </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Cost Per Action / Bid ($)</label>
-                            <input type="number" step="0.001" id="campaignCpa" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="e.g., 0.005">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Target Country</label>
+                            <input type="text" id="targetCountry" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="e.g., Uganda">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1" id="unitsLabel">Units (Clicks/Views)</label>
+                            <input type="number" id="totalUnits" min="1" value="1" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary">
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl flex justify-between items-center border border-slate-100">
+                        <div>
+                            <p class="text-xs text-slate-400 font-semibold uppercase">Estimated Campaign Budget</p>
+                            <p class="text-sm text-slate-500" id="unitPricingBreakdown">Unit rate: 0.00</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-black text-brand-primary" id="estimatedTotalCost">0.00 UGX</p>
                         </div>
                     </div>
 
                     <button type="submit" class="w-full bg-brand-dark text-white py-4 rounded-xl font-semibold hover:bg-slate-800 transition-all shadow-md flex items-center justify-center space-x-2">
-                        <i data-lucide="send" class="w-4 h-4"></i>
-                        <span>Launch Live Campaign</span>
+                        <i data-lucide="zap" class="w-4 h-4"></i>
+                        <span>Lock Funds & Submit Campaign</span>
                     </button>
                 </form>
             </div>
@@ -131,39 +166,26 @@
 
         <div class="space-y-8">
             <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-4">
-                <h4 class="font-bold text-brand-dark flex items-center gap-2">
-                    <i data-lucide="shield-check" class="text-brand-primary"></i>
-                    <span>Campaign Guidelines</span>
+                <h4 class="font-bold text-brand-dark flex items-center gap-2 border-b border-slate-50 pb-2">
+                    <i data-lucide="table" class="text-brand-primary"></i>
+                    <span>Official Pricing Index</span>
                 </h4>
-                <ul class="text-sm text-slate-600 space-y-3">
-                    <li class="flex items-start gap-2">
-                        <span class="text-brand-primary font-bold">•</span>
-                        <span>The minimum cost-per-action (CPA) is **$0.005** per unique view/share.</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <span class="text-brand-primary font-bold">•</span>
-                        <span>Ensure your target URLs are HTTPS and load safely on all mobile browsers.</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <span class="text-brand-primary font-bold">•</span>
-                        <span>Budgets are automatically held and paid out to verified earners.</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-4">
-                <h4 class="font-bold text-brand-dark flex items-center gap-2">
-                    <i data-lucide="activity" class="text-brand-primary"></i>
-                    <span>Live Network Reach</span>
-                </h4>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-slate-50 p-4 rounded-xl">
-                        <p class="text-xs text-slate-400 font-semibold">Active Earners</p>
-                        <p class="text-lg font-bold text-brand-dark">45.2K</p>
+                <div class="text-xs text-slate-600 space-y-4">
+                    <div>
+                        <p class="font-bold text-brand-dark mb-1">Classified Listings (Flat Weekly)</p>
+                        <p>7,500 UGX | 260 KES | 5,200 TZS | 2,600 RWF | 37 ZAR</p>
                     </div>
-                    <div class="bg-slate-50 p-4 rounded-xl">
-                        <p class="text-xs text-slate-400 font-semibold">Total Clicks Today</p>
-                        <p class="text-lg font-bold text-brand-dark">182K</p>
+                    <div>
+                        <p class="font-bold text-brand-dark mb-1">Website Banner Ads (Cost-Per-Click)</p>
+                        <p>112 UGX | 3.9 KES | 78 TZS | 39 RWF | 0.55 ZAR</p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-brand-dark mb-1">Video Ads (Cost-Per-View)</p>
+                        <p>150 UGX | 5.2 KES | 104 TZS | 52 RWF | 0.74 ZAR</p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-brand-dark mb-1">Social Repost (Flat Pool)</p>
+                        <p>37,500 UGX | 1,300 KES | 26,000 TZS | 13,000 RWF | 185 ZAR</p>
                     </div>
                 </div>
             </div>
@@ -171,37 +193,78 @@
 
     </main>
 
-    <footer class="bg-brand-dark text-slate-400 py-6 border-t border-slate-800 text-center mt-auto">
-        <p class="text-sm">&copy; 2026 AfriAd Africa. All rights reserved.</p>
-    </footer>
-
     <script>
         lucide.createIcons();
 
-        // Configured dynamically to communicate with your live Render server!
         const API_BASE_URL = 'https://afriad-central-backend.onrender.com/api';
 
-        // Load logged-in user credentials to initialize the dashboard
+        // Static Copy of Server's Pricing Matrix
+        const PRICING_MATRIX = {
+            classified: { UGX: 7500, KES: 260, TZS: 5200, RWF: 2600, ZAR: 37 },
+            banner_cpc: { UGX: 112, KES: 3.9, TZS: 78, RWF: 39, ZAR: 0.55 },
+            video_ad: { UGX: 150, KES: 5.2, TZS: 104, RWF: 52, ZAR: 0.74 },
+            social_repost: { UGX: 37500, KES: 1300, TZS: 26000, RWF: 13000, ZAR: 185 }
+        };
+
+        // Initialize User Interface Data
         document.addEventListener('DOMContentLoaded', () => {
             if (user) {
                 document.getElementById('headerUsername').innerText = user.username;
                 document.getElementById('headerEmail').innerText = user.email;
-                document.getElementById('walletBalance').innerText = `$${parseFloat(user.balance).toFixed(2)}`;
+                fetchAndDisplayWallet();
             }
+            calculateCost();
         });
 
-        // Logout execution
+        // Fetch Wallet Balances from Local Storage or Backend Database API
+        function fetchAndDisplayWallet() {
+            // Simulated local rendering using initial mock states
+            document.getElementById('bal-ugx').innerText = parseFloat(user.ugx_balance || 0).toLocaleString();
+            document.getElementById('bal-kes').innerText = parseFloat(user.kes_balance || 0).toLocaleString();
+            document.getElementById('bal-tzs').innerText = parseFloat(user.tzs_balance || 0).toLocaleString();
+            document.getElementById('bal-rwf').innerText = parseFloat(user.rwf_balance || 0).toLocaleString();
+            document.getElementById('bal-zar').innerText = parseFloat(user.zar_balance || 0).toLocaleString();
+        }
+
+        // Live calculation and form rule handling
+        const campaignTypeSelect = document.getElementById('campaignType');
+        const currencySelect = document.getElementById('currency');
+        const unitsInput = document.getElementById('totalUnits');
+
+        function calculateCost() {
+            const campaignType = campaignTypeSelect.value;
+            const currency = currencySelect.value;
+            let units = parseInt(unitsInput.value) || 1;
+
+            // Flat-rate rules check
+            if (campaignType === 'classified' || campaignType === 'social_repost') {
+                unitsInput.disabled = true;
+                unitsInput.value = 1;
+                units = 1;
+            } else {
+                unitsInput.disabled = false;
+            }
+
+            const unitRate = PRICING_MATRIX[campaignType][currency];
+            const totalCost = unitRate * units;
+
+            document.getElementById('unitPricingBreakdown').innerText = `Unit rate: ${unitRate} ${currency}`;
+            document.getElementById('estimatedTotalCost').innerText = `${totalCost.toLocaleString()} ${currency}`;
+        }
+
+        campaignTypeSelect.addEventListener('change', calculateCost);
+        currencySelect.addEventListener('change', calculateCost);
+        unitsInput.addEventListener('input', calculateCost);
+
         function handleLogout() {
             localStorage.clear();
             window.location.href = 'index.html';
         }
 
-        // Alert Handler
-        function showFormAlert(message, isSuccess = false) {
+        function showAlert(message, isSuccess = false) {
             const alert = document.getElementById('campaignAlert');
             alert.innerText = message;
             alert.classList.remove('hidden', 'bg-red-50', 'text-red-600', 'bg-emerald-50', 'text-emerald-600');
-
             if (isSuccess) {
                 alert.classList.add('bg-emerald-50', 'text-emerald-600');
             } else {
@@ -209,34 +272,19 @@
             }
         }
 
-        // Campaign Submission API Request
+        // Form Submission
         document.getElementById('campaignForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            showFormAlert(''); // Clear alerts
-
-            const title = document.getElementById('campaignTitle').value;
-            const ad_type = document.getElementById('campaignType').value;
-            const ad_url = document.getElementById('campaignUrl').value;
-            const budget_total = parseFloat(document.getElementById('campaignTotalBudget').value);
-            const cost_per_action = parseFloat(document.getElementById('campaignCpa').value);
-
-            // Validation Checks
-            if (budget_total > parseFloat(user.balance)) {
-                showFormAlert('Insufficient wallet balance. Please add funds to your wallet.');
-                return;
-            }
-
-            if (cost_per_action < 0.005) {
-                showFormAlert('The minimum Cost Per Action (CPA) is $0.005.');
-                return;
-            }
+            showAlert('');
 
             const payload = {
-                title,
-                ad_type,
-                ad_url,
-                budget_total,
-                cost_per_action
+                advertiserId: user.id,
+                campaignType: campaignTypeSelect.value,
+                title: document.getElementById('campaignTitle').value,
+                mediaUrl: document.getElementById('mediaUrl').value,
+                targetCountry: document.getElementById('targetCountry').value,
+                currency: currencySelect.value,
+                totalUnits: unitsInput.value
             };
 
             try {
@@ -252,21 +300,22 @@
                 const data = await response.json();
 
                 if (!response.ok) {
-                    throw new Error(data.error || 'Failed to generate campaign.');
+                    throw new Error(data.error || 'Server rejected campaign request.');
                 }
 
-                showFormAlert('Campaign launched successfully! It is now live across our networks.', true);
+                showAlert('Success! Campaign locked and submitted for admin review.', true);
                 
-                // Deduct balance locally and save to simulate real-time updates
-                user.balance = (parseFloat(user.balance) - budget_total).toFixed(4);
+                // Dynamically update UI wallet reference balance
+                const walletKey = `${payload.currency.toLowerCase()}_balance`;
+                user[walletKey] = parseFloat(data.newBalance);
                 localStorage.setItem('user', JSON.stringify(user));
-                document.getElementById('walletBalance').innerText = `$${parseFloat(user.balance).toFixed(2)}`;
+                fetchAndDisplayWallet();
 
-                // Clear input fields
                 document.getElementById('campaignForm').reset();
+                calculateCost();
 
-            } catch (error) {
-                showFormAlert(`Error: ${error.message}`);
+            } catch (err) {
+                showAlert(err.message, false);
             }
         });
     </script>
