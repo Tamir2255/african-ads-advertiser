@@ -3,285 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advertiser Console | AfriAd Platform</title>
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Clean, Structured UI Dashboard Layout Stylesheet -->
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+    <title>Advertiser Dashboard | AfriAd-advertiser</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            primary: '#10B981', // Emerald Green
+                            dark: '#0F172A',    // Deep Slate
+                            accent: '#F59E0B'  // Amber/Gold
+                        }
+                    }
+                }
+            }
         }
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #F8FAFC;
-            color: #0F172A;
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Control Panel Sidebar Layout */
-        .sidebar {
-            width: 260px;
-            background-color: #0F172A;
-            color: #FFFFFF;
-            display: flex;
-            flex-direction: column;
-            padding: 24px;
-            border-r: 1px solid #1E293B;
-            flex-shrink: 0;
-        }
-        .sidebar-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid #1E293B;
-        }
-        .sidebar-logo-icon {
-            background-color: #2563EB;
-            color: #FFFFFF;
-            font-weight: 800;
-            font-size: 14px;
-            padding: 6px 10px;
-            border-radius: 8px;
-        }
-        .sidebar-brand-name {
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-        }
-        .sidebar-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 24px;
-            flex-grow: 1;
-        }
-        .menu-item {
-            display: block;
-            padding: 10px 16px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #94A3B8;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            text-decoration: none;
-            border-radius: 12px;
-            transition: all 0.2s;
-        }
-        .menu-item:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: #FFFFFF;
-        }
-        .menu-item-active {
-            background-color: #2563EB;
-            color: #FFFFFF !important;
-        }
-        .profile-badge {
-            background-color: rgba(30, 41, 59, 0.4);
-            padding: 16px;
-            border-radius: 12px;
-            border: 1px solid #1E293B;
-            text-align: center;
-        }
-        .profile-title {
-            display: block;
-            text-transform: uppercase;
-            font-size: 10px;
-            font-weight: 700;
-            color: #64748B;
-            letter-spacing: 0.1em;
-        }
-        .profile-id {
-            display: block;
-            font-weight: 700;
-            font-size: 12px;
-            color: #60A5FA;
-            margin-top: 4px;
-        }
-
-        /* Workspace Dynamic Container Content */
-        .workspace {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-        }
-        .top-bar {
-            background-color: #FFFFFF;
-            border-bottom: 1px solid #E2E8F0;
-            padding: 20px 32px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .page-title {
-            font-size: 20px;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-        }
-        .page-subtitle {
-            font-size: 12px;
-            color: #94A3B8;
-            margin-top: 2px;
-        }
-        .action-controls {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        .selector {
-            background-color: #F8FAFC;
-            border: 1px solid #E2E8F0;
-            border-radius: 12px;
-            padding: 10px 14px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #334155;
-            outline: none;
-            cursor: pointer;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
-        }
-        .btn-action {
-            background-color: #2563EB;
-            color: #FFFFFF;
-            font-weight: 700;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 12px 20px;
-            border-radius: 12px;
-            text-decoration: none;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-            transition: background-color 0.2s;
-        }
-        .btn-action:hover {
-            background-color: #1D4ED8;
-        }
-
-        /* Stats Cards Layout Grid */
-        .analytics-grid {
-            padding: 32px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-        }
-        @media (min-width: 640px) {
-            .analytics-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (min-width: 1024px) {
-            .analytics-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-        .stat-card {
-            background-color: #FFFFFF;
-            padding: 24px;
-            border-radius: 16px;
-            border: 1px solid #E2E8F0;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
-        }
-        .stat-label {
-            font-size: 10px;
-            font-weight: 800;
-            color: #94A3B8;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            display: block;
-        }
-        .stat-val {
-            font-size: 24px;
-            font-weight: 800;
-            color: #0F172A;
-            margin-top: 8px;
-            letter-spacing: -0.02em;
-        }
-        .stat-val-green {
-            color: #059669;
-        }
-    </style>
+    </script>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
 
-    <!-- Administration Sidebar Navigation Console -->
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <span class="sidebar-logo-icon">AA</span>
-            <h2 class="sidebar-brand-name">AfriAd Console</h2>
+    <script>
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        if (!token || !user || user.role !== 'advertiser') {
+            // Kick unauthorized users back to the landing page
+            window.location.href = 'index.html';
+        }
+    </script>
+
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-brand-primary text-white p-2 rounded-xl flex items-center justify-center relative shadow-sm">
+                    <span class="text-xl font-black tracking-tighter leading-none">AA</span>
+                    <div class="absolute -top-1 -right-1 bg-brand-accent text-brand-dark p-0.5 rounded-full">
+                        <i data-lucide="megaphone" class="w-3 h-3"></i>
+                    </div>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-brand-dark">AfriAd<span class="text-brand-primary">-advertiser</span></span>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <div class="text-right hidden sm:block">
+                    <p class="font-bold text-brand-dark" id="headerUsername">Advertiser</p>
+                    <p class="text-xs text-slate-400" id="headerEmail">business@afriad.com</p>
+                </div>
+                <button onclick="handleLogout()" class="flex items-center space-x-2 bg-red-50 text-red-600 px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-red-100 transition-colors">
+                    <i data-lucide="log-out" class="w-4 h-4"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
         </div>
-        <nav class="sidebar-menu">
-            <a href="#" class="menu-item menu-item-active">📊 Performance Hub</a>
-            <a href="#" class="menu-item">💳 Billing Ledger</a>
-            <a href="#" class="menu-item">🎯 Audience Config</a>
-        </nav>
-        <div class="profile-badge">
-            <span class="profile-title">Active Profile</span>
-            <span class="profile-id">UID-20268892</span>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <div class="lg:col-span-2 space-y-8">
+            
+            <div class="bg-gradient-to-r from-brand-dark to-slate-800 text-white p-8 rounded-2xl shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 relative overflow-hidden">
+                <div class="space-y-1 relative z-10">
+                    <p class="text-sm text-slate-300 font-medium uppercase tracking-wider">Available Ad Wallet Balance</p>
+                    <h2 class="text-4xl font-extrabold text-white" id="walletBalance">$0.00</h2>
+                </div>
+                <div class="relative z-10 flex gap-3">
+                    <button class="bg-brand-primary hover:bg-emerald-600 text-white px-5 py-3 rounded-xl font-semibold transition-all shadow-lg shadow-emerald-500/20 flex items-center space-x-2">
+                        <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                        <span>Fund Wallet</span>
+                    </button>
+                </div>
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-2xl"></div>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <h3 class="text-xl font-bold text-brand-dark flex items-center gap-2">
+                        <i data-lucide="plus-circle" class="text-brand-primary"></i>
+                        <span>Create New Campaign</span>
+                    </h3>
+                    <p class="text-sm text-slate-500 mt-1">Set your target budget and choose how earners distribute your campaign.</p>
+                </div>
+
+                <div id="campaignAlert" class="hidden p-4 rounded-xl text-sm font-semibold"></div>
+
+                <form id="campaignForm" class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Campaign Title</label>
+                        <input type="text" id="campaignTitle" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="e.g., Summer Sneaker Sale Promo">
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Ad Format Type</label>
+                            <select id="campaignType" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-brand-primary">
+                                <option value="video">Video Ads (Views)</option>
+                                <option value="website_banner">Website Banner Placements</option>
+                                <option value="social_share">Social Media Shares</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Target URL / Video Link</label>
+                            <input type="url" id="campaignUrl" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="https://example.com/promo">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Total Campaign Budget ($)</label>
+                            <input type="number" step="0.01" id="campaignTotalBudget" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="e.g., 50.00">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Cost Per Action / Bid ($)</label>
+                            <input type="number" step="0.001" id="campaignCpa" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="e.g., 0.005">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-dark text-white py-4 rounded-xl font-semibold hover:bg-slate-800 transition-all shadow-md flex items-center justify-center space-x-2">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <span>Launch Live Campaign</span>
+                    </button>
+                </form>
+            </div>
+
         </div>
-    </aside>
 
-    <!-- Main Analytics Operations Workspace -->
-    <main class="workspace">
-        <header class="top-bar">
-            <div>
-                <h1 class="page-title">Campaign Operations</h1>
-                <p class="page-subtitle">Track deployment delivery analytics across African regions.</p>
+        <div class="space-y-8">
+            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-4">
+                <h4 class="font-bold text-brand-dark flex items-center gap-2">
+                    <i data-lucide="shield-check" class="text-brand-primary"></i>
+                    <span>Campaign Guidelines</span>
+                </h4>
+                <ul class="text-sm text-slate-600 space-y-3">
+                    <li class="flex items-start gap-2">
+                        <span class="text-brand-primary font-bold">•</span>
+                        <span>The minimum cost-per-action (CPA) is **$0.005** per unique view/share.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-brand-primary font-bold">•</span>
+                        <span>Ensure your target URLs are HTTPS and load safely on all mobile browsers.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-brand-primary font-bold">•</span>
+                        <span>Budgets are automatically held and paid out to verified earners.</span>
+                    </li>
+                </ul>
             </div>
-            <div class="action-controls">
-                <select id="currencySelector" class="selector">
-                    <option value="UGX">🇺🇬 Ugandan Shilling (UGX)</option>
-                    <option value="KES">🇰🇪 Kenyan Shilling (KES)</option>
-                    <option value="TZS">🇹🇿 Tanzanian Shilling (TZS)</option>
-                    <option value="RWF">🇷🇼 Rwandan Franc (RWF)</option>
-                    <option value="ZAR">🇿🇦 South African Rand (ZAR)</option>
-                </select>
-                <a href="create-campaign.html" class="btn-action">+ Launch Campaign</a>
-            </div>
-        </header>
 
-        <!-- Dynamic Output Ledger Values -->
-        <section class="analytics-grid">
-            <div class="stat-card">
-                <span class="stat-label">Available Balance</span>
-                <div class="stat-val" id="displayBalance">75,000 UGX</div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-4">
+                <h4 class="font-bold text-brand-dark flex items-center gap-2">
+                    <i data-lucide="activity" class="text-brand-primary"></i>
+                    <span>Live Network Reach</span>
+                </h4>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-50 p-4 rounded-xl">
+                        <p class="text-xs text-slate-400 font-semibold">Active Earners</p>
+                        <p class="text-lg font-bold text-brand-dark">45.2K</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl">
+                        <p class="text-xs text-slate-400 font-semibold">Total Clicks Today</p>
+                        <p class="text-lg font-bold text-brand-dark">182K</p>
+                    </div>
+                </div>
             </div>
-            <div class="stat-card">
-                <span class="stat-label">Global Impressions</span>
-                <div class="stat-val">42,891</div>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Verified Clicks</span>
-                <div class="stat-val stat-val-green">1,402</div>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Accumulated Cost</span>
-                <div class="stat-val" id="displaySpent">34,500 UGX</div>
-            </div>
-        </section>
+        </div>
+
     </main>
 
-    <!-- Native JavaScript UI Switcher Logic -->
+    <footer class="bg-brand-dark text-slate-400 py-6 border-t border-slate-800 text-center mt-auto">
+        <p class="text-sm">&copy; 2026 AfriAd Africa. All rights reserved.</p>
+    </footer>
+
     <script>
-        const localBalances = {
-            UGX: { bal: "75,000 UGX", spent: "34,500 UGX" },
-            KES: { bal: "2,600 KES", spent: "1,200 KES" },
-            TZS: { bal: "52,000 TZS", spent: "24,000 TZS" },
-            RWF: { bal: "26,000 RWF", spent: "12,000 RWF" },
-            ZAR: { bal: "370 ZAR", spent: "170 ZAR" }
-        };
+        lucide.createIcons();
 
-        const selector = document.getElementById('currencySelector');
-        const balContainer = document.getElementById('displayBalance');
-        const spentContainer = document.getElementById('displaySpent');
+        // Configured dynamically to communicate with your live Render server!
+        const API_BASE_URL = 'https://afriad-central-backend.onrender.com/api';
 
-        selector.addEventListener('change', (e) => {
-            const selectedCurrency = e.target.value;
-            balContainer.innerText = localBalances[selectedCurrency].bal;
-            spentContainer.innerText = localBalances[selectedCurrency].spent;
+        // Load logged-in user credentials to initialize the dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            if (user) {
+                document.getElementById('headerUsername').innerText = user.username;
+                document.getElementById('headerEmail').innerText = user.email;
+                document.getElementById('walletBalance').innerText = `$${parseFloat(user.balance).toFixed(2)}`;
+            }
+        });
+
+        // Logout execution
+        function handleLogout() {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+
+        // Alert Handler
+        function showFormAlert(message, isSuccess = false) {
+            const alert = document.getElementById('campaignAlert');
+            alert.innerText = message;
+            alert.classList.remove('hidden', 'bg-red-50', 'text-red-600', 'bg-emerald-50', 'text-emerald-600');
+
+            if (isSuccess) {
+                alert.classList.add('bg-emerald-50', 'text-emerald-600');
+            } else {
+                alert.classList.add('bg-red-50', 'text-red-600');
+            }
+        }
+
+        // Campaign Submission API Request
+        document.getElementById('campaignForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            showFormAlert(''); // Clear alerts
+
+            const title = document.getElementById('campaignTitle').value;
+            const ad_type = document.getElementById('campaignType').value;
+            const ad_url = document.getElementById('campaignUrl').value;
+            const budget_total = parseFloat(document.getElementById('campaignTotalBudget').value);
+            const cost_per_action = parseFloat(document.getElementById('campaignCpa').value);
+
+            // Validation Checks
+            if (budget_total > parseFloat(user.balance)) {
+                showFormAlert('Insufficient wallet balance. Please add funds to your wallet.');
+                return;
+            }
+
+            if (cost_per_action < 0.005) {
+                showFormAlert('The minimum Cost Per Action (CPA) is $0.005.');
+                return;
+            }
+
+            const payload = {
+                title,
+                ad_type,
+                ad_url,
+                budget_total,
+                cost_per_action
+            };
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/campaigns/create`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to generate campaign.');
+                }
+
+                showFormAlert('Campaign launched successfully! It is now live across our networks.', true);
+                
+                // Deduct balance locally and save to simulate real-time updates
+                user.balance = (parseFloat(user.balance) - budget_total).toFixed(4);
+                localStorage.setItem('user', JSON.stringify(user));
+                document.getElementById('walletBalance').innerText = `$${parseFloat(user.balance).toFixed(2)}`;
+
+                // Clear input fields
+                document.getElementById('campaignForm').reset();
+
+            } catch (error) {
+                showFormAlert(`Error: ${error.message}`);
+            }
         });
     </script>
 </body>
