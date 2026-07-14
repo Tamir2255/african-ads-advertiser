@@ -3,349 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AfriAd-advertiser | Best Advertising Platform in Africa</title>
+    <title>AfriAd - Unified Premium Multicurrency Advertising Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         brand: {
-                            primary: '#10B981', // Emerald Green
-                            dark: '#0F172A',    // Deep Slate
-                            accent: '#F59E0B'  // Amber/Gold
+                            orange: '#FF5A00',
+                            green: '#00B25C',
+                            dark: '#0F172A',
+                            slate: '#1E293B'
                         }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
+    <style>
+        .double-a-left {
+            transform: skewX(-8deg);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .double-a-right {
+            transform: skewX(-8deg);
+            mix-blend-mode: multiply;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .logo-hover-zone:hover .double-a-left {
+            transform: skewX(-12deg) scale(1.05);
+        }
+        .logo-hover-zone:hover .double-a-right {
+            transform: skewX(-4deg) scale(1.05);
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col font-sans antialiased">
 
-    <header class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="bg-brand-primary text-white p-2 rounded-xl flex items-center justify-center relative shadow-sm">
-                    <span class="text-xl font-black tracking-tighter leading-none">AA</span>
-                    <div class="absolute -top-1 -right-1 bg-brand-accent text-brand-dark p-0.5 rounded-full">
-                        <i data-lucide="megaphone" class="w-3 h-3"></i>
-                    </div>
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="index.html" class="logo-hover-zone flex items-center gap-3 cursor-pointer select-none">
+                <div class="relative w-11 h-11 flex items-center justify-center">
+                    <div class="double-a-left absolute left-1 w-6 h-9 border-[3.5px] border-brand-orange rounded-t-xl rounded-b-[3px] border-b-0"></div>
+                    <div class="double-a-right absolute right-1 w-6 h-9 border-[3.5px] border-brand-green rounded-t-xl rounded-b-[3px] border-b-0"></div>
+                    <div class="absolute top-[55%] left-0.5 w-[38px] h-1 bg-gradient-to-r from-brand-orange to-brand-green rounded-full z-10"></div>
                 </div>
-                <span class="text-xl font-bold tracking-tight text-brand-dark">AfriAd<span class="text-brand-primary">-advertiser</span></span>
-            </div>
-            <nav class="hidden md:flex items-center space-x-8 font-medium text-slate-600">
-                <a href="#features" class="hover:text-brand-primary transition-colors">Features</a>
-                <a href="#ad-types" class="hover:text-brand-primary transition-colors">Ad Formats</a>
-                <a href="#pricing" class="hover:text-brand-primary transition-colors">Pricing</a>
-            </nav>
-            <div>
-                <button onclick="openAuthModal('register')" class="bg-brand-dark text-white px-5 py-2.5 rounded-xl font-medium hover:bg-slate-800 transition-all shadow-sm">
-                    Start Advertising
-                </button>
+                <span class="text-2xl font-extrabold tracking-tight text-slate-900">
+                    Afri<span class="text-brand-orange">Ad</span>
+                </span>
+            </a>
+
+            <div class="flex items-center gap-4">
+                <a href="dashboard.html" class="bg-brand-dark hover:bg-slate-800 text-white font-semibold px-6 py-2.5 rounded-xl shadow-md shadow-slate-900/10 transition-all duration-200 flex items-center gap-2">
+                    <span>Advertiser Dashboard</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </a>
             </div>
         </div>
     </header>
 
-    <section class="pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-gradient-to-b from-emerald-50/30 to-white">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
-                <div class="inline-flex items-center space-x-2 bg-emerald-50 text-brand-primary px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide">
-                    <i data-lucide="globe" class="w-4 h-4"></i>
-                    <span>#1 Advertisement Platform in Africa</span>
-                </div>
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-dark leading-tight">
-                    Scale your business with <span class="text-brand-primary">high-impact</span> ads.
-                </h1>
-                <p class="text-lg text-slate-600 max-w-xl">
-                    Reach millions of active consumers across the African continent. Benefit from unmatched audience retention, flexible campaigns, and the lowest ad rates in the industry.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 pt-2">
-                    <button onclick="openAuthModal('register')" class="bg-brand-primary text-white text-center px-8 py-4 rounded-xl font-semibold hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-500/20">
-                        Launch Your Campaign
-                    </button>
-                    <a href="#pricing" class="border border-slate-200 text-slate-700 text-center px-8 py-4 rounded-xl font-semibold hover:bg-slate-50 transition-all">
-                        View Low Rates
-                    </a>
-                </div>
-            </div>
-            
-            <div class="relative lg:ml-4">
-                <div class="bg-brand-dark text-white p-6 rounded-2xl shadow-2xl space-y-6 border border-slate-700/50">
-                    <div class="flex justify-between items-center border-b border-slate-700/50 pb-4">
-                        <span class="font-semibold text-slate-400">Campaign Overview</span>
-                        <span class="text-xs bg-emerald-500/20 text-brand-primary px-2.5 py-1 rounded-md font-medium">Live Tracking</span>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-slate-800/50 p-4 rounded-xl">
-                            <p class="text-xs text-slate-400">Total Impressions</p>
-                            <p class="text-2xl font-bold mt-1 text-white">1.8M+</p>
-                        </div>
-                        <div class="bg-slate-800/50 p-4 rounded-xl">
-                            <p class="text-xs text-slate-400">Avg. Click Rate</p>
-                            <p class="text-2xl font-bold mt-1 text-brand-accent">4.2%</p>
+    <main class="flex-1">
+        <section class="relative overflow-hidden pt-20 pb-24 lg:pt-28 lg:pb-32 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="lg:grid lg:grid-cols-12 lg:gap-12 items-center">
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-orange/10 text-brand-orange uppercase tracking-wider">
+                            🚀 High Impact African Advertising
+                        </span>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1]">
+                            The Leading Multicurrency Ad Engine for Growth Teams
+                        </h1>
+                        <p class="text-lg text-slate-500 max-w-2xl mx-auto lg:mx-0">
+                            Create ads, settle automatically using local mobile money in <strong class="text-slate-800">UGX, KES, TZS, RWF, or ZAR</strong>, and watch your brand metrics climb dynamically.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                            <a href="dashboard.html" class="w-full sm:w-auto px-8 py-4 bg-brand-orange hover:bg-orange-600 text-white font-bold rounded-xl text-center shadow-lg shadow-brand-orange/20 transition-all">
+                                Launch Your Campaign
+                            </a>
+                            <a href="#pricing-calculator" class="w-full sm:w-auto px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-center transition-all">
+                                View Local Pricing Table
+                            </a>
                         </div>
                     </div>
-                    <div class="bg-slate-800/50 p-4 rounded-xl flex items-center justify-between">
-                        <div>
-                            <p class="text-xs text-slate-400">Cost Per Click (CPC)</p>
-                            <p class="text-xl font-bold mt-1 text-emerald-400">$0.005 <span class="text-xs text-slate-400 font-normal">avg</span></p>
+                    <div class="hidden lg:block lg:col-span-5 relative">
+                        <div class="relative w-full h-[400px] bg-slate-100 rounded-3xl border border-slate-200/80 shadow-2xl overflow-hidden flex flex-col p-6">
+                            <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3.5 h-3.5 rounded-full bg-red-400"></div>
+                                    <div class="w-3.5 h-3.5 rounded-full bg-yellow-400"></div>
+                                    <div class="w-3.5 h-3.5 rounded-full bg-green-400"></div>
+                                </div>
+                                <span class="text-xs font-medium text-slate-400">afriad.com/analytics</span>
+                            </div>
+                            <div class="space-y-4 flex-1 justify-center flex flex-col">
+                                <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-100">
+                                    <div class="text-xs text-slate-400 uppercase font-semibold">Active Impressions</div>
+                                    <div class="text-2xl font-bold text-slate-900">485,200+</div>
+                                    <div class="text-xs text-brand-green font-medium">▲ +12.4% vs. yesterday</div>
+                                </div>
+                                <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-xs text-slate-400 uppercase font-semibold">Real-Time Spend</div>
+                                        <div class="text-xl font-bold text-slate-900" id="hero-spend-amount">UGX 1,500,000</div>
+                                    </div>
+                                    <span class="px-3 py-1 bg-brand-green/15 text-brand-green text-xs font-bold rounded-full">ACTIVE</span>
+                                </div>
+                            </div>
                         </div>
-                        <i data-lucide="trending-up" class="w-8 h-8 text-brand-primary"></i>
-                    </div>
-                </div>
-                <div class="absolute -top-10 -right-10 w-40 h-40 bg-emerald-400/20 rounded-full blur-3xl -z-10"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="features" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-3xl font-bold text-brand-dark sm:text-4xl">Why Modern Brands Choose AfriAd</h2>
-                <p class="text-slate-600 mt-4">We bridge the gap between businesses and African audiences by maximizing budget efficiency.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="p-8 rounded-2xl bg-slate-50 hover:bg-white border border-transparent hover:border-slate-100 transition-all hover:shadow-xl group">
-                    <div class="w-12 h-12 bg-emerald-100 text-brand-primary rounded-xl flex items-center justify-center group-hover:bg-brand-primary group-hover:text-white transition-all">
-                        <i data-lucide="coins"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mt-6 mb-2 text-brand-dark">Budget-Friendly Pricing</h3>
-                    <p class="text-slate-600">Get the absolute lowest minimum cost per impression or click. Zero hidden fees. Pay only for real engagement.</p>
-                </div>
-                <div class="p-8 rounded-2xl bg-slate-50 hover:bg-white border border-transparent hover:border-slate-100 transition-all hover:shadow-xl group">
-                    <div class="w-12 h-12 bg-amber-100 text-brand-accent rounded-xl flex items-center justify-center group-hover:bg-brand-accent group-hover:text-white transition-all">
-                        <i data-lucide="users"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mt-6 mb-2 text-brand-dark">Massive African Audience</h3>
-                    <p class="text-slate-600">Tap into a highly engaged user base across major regions. Connect instantly with millions of targeted buyers.</p>
-                </div>
-                <div class="p-8 rounded-2xl bg-slate-50 hover:bg-white border border-transparent hover:border-slate-100 transition-all hover:shadow-xl group">
-                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all">
-                        <i data-lucide="bar-chart-3"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mt-6 mb-2 text-brand-dark">Instant Analytics</h3>
-                    <p class="text-slate-600">Track impressions, video views, and clicks in real-time. Control budgets and optimize on the fly.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="ad-types" class="py-20 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-3xl font-bold text-brand-dark sm:text-4xl">We Support Every Type of Business Ad</h2>
-                <p class="text-slate-600 mt-4">Choose the medium that best fits your goals. Our network of thousands of earners will distribute it instantly.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-start space-x-4">
-                    <div class="p-3 bg-red-50 text-red-500 rounded-xl shrink-0">
-                        <i data-lucide="video" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-lg font-bold text-brand-dark">Video Ads</h4>
-                        <p class="text-sm text-slate-500 mt-1">Get guaranteed video views. Perfect for brand awareness and detailed product walkthroughs.</p>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-start space-x-4">
-                    <div class="p-3 bg-purple-50 text-purple-500 rounded-xl shrink-0">
-                        <i data-lucide="layout" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-lg font-bold text-brand-dark">Website Banner Placements</h4>
-                        <p class="text-sm text-slate-500 mt-1">Display your banners across thousands of verified blogs and high-traffic niche websites.</p>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-start space-x-4">
-                    <div class="p-3 bg-emerald-50 text-brand-primary rounded-xl shrink-0">
-                        <i data-lucide="share-2" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-lg font-bold text-brand-dark">Social Media Posts</h4>
-                        <p class="text-sm text-slate-500 mt-1">Have earners post or share your banner directly to their personal WhatsApp, X, or Facebook feeds.</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="pricing" class="py-20 bg-white">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-3xl font-bold text-brand-dark sm:text-4xl">Unbeatable Pricing, Incredible ROI</h2>
-            <p class="text-lg text-slate-600 mt-4 max-w-xl mx-auto">
-                No expensive contracts. Fund your wallet with as little money as you want, set your bid, and watch your business scale.
-            </p>
-            <div class="mt-10 inline-flex flex-col sm:flex-row items-center justify-center gap-6 bg-slate-50 p-6 rounded-2xl border border-slate-100">
-                <div class="text-left sm:pr-8 sm:border-r border-slate-200">
-                    <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Starting at just</p>
-                    <p class="text-4xl font-extrabold text-brand-dark">$0.005 <span class="text-sm font-normal text-slate-500">/ action</span></p>
-                </div>
-                <button onclick="openAuthModal('register')" class="w-full sm:w-auto bg-brand-primary text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-emerald-600 transition-all shadow-md">
-                    Create Advertiser Account
-                </button>
-            </div>
-        </div>
-    </section>
+        <section id="pricing-calculator" class="py-20 bg-slate-100 border-y border-slate-200/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
+                <div class="space-y-4 max-w-3xl mx-auto">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                        Transparent Rates Matched to Your Market Currency
+                    </h2>
+                    <p class="text-slate-500">
+                        View our baseline standard pricing. Switch between our local currency options to preview exact prices in your local region.
+                    </p>
 
-    <footer class="bg-brand-dark text-slate-400 py-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center space-x-2 text-white">
-                <div class="bg-brand-primary text-white p-1.5 rounded-lg flex items-center justify-center relative">
-                    <span class="text-xs font-black tracking-tighter">AA</span>
+                    <div class="inline-flex p-1.5 bg-white rounded-xl border border-slate-200/80 shadow-sm gap-1 mt-4">
+                        <button onclick="updatePricingDisplay('UGX')" class="curr-tab px-4 py-2 text-sm font-bold rounded-lg bg-brand-dark text-white shadow-sm transition-all">UGX (Uganda)</button>
+                        <button onclick="updatePricingDisplay('KES')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">KES (Kenya)</button>
+                        <button onclick="updatePricingDisplay('TZS')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">TZS (Tanzania)</button>
+                        <button onclick="updatePricingDisplay('RWF')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">RWF (Rwanda)</button>
+                        <button onclick="updatePricingDisplay('ZAR')" class="curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all">ZAR (South Africa)</button>
+                    </div>
                 </div>
-                <span class="font-bold tracking-tight">AfriAd-advertiser</span>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                        <div class="text-xs font-bold text-brand-orange uppercase tracking-wider">Format Pack</div>
+                        <h3 class="text-xl font-bold text-slate-900">Classified Ad</h3>
+                        <p class="text-slate-400 text-sm">Best for text classifieds and quick marketplace promotions.</p>
+                        <div class="pt-4 border-t border-slate-100 flex items-baseline gap-1">
+                            <span class="text-3xl font-extrabold text-slate-950" id="p-classified">7,500</span>
+                            <span class="text-sm font-semibold text-slate-400" id="c-classified">UGX</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                        <div class="text-xs font-bold text-blue-500 uppercase tracking-wider">Performance</div>
+                        <h3 class="text-xl font-bold text-slate-900">Banner (CPC)</h3>
+                        <p class="text-slate-400 text-sm">Visual graphic display targeting high-intent web readers.</p>
+                        <div class="pt-4 border-t border-slate-100 flex items-baseline gap-1">
+                            <span class="text-3xl font-extrabold text-slate-950" id="p-banner">112</span>
+                            <span class="text-sm font-semibold text-slate-400" id="c-banner">UGX</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                        <div class="text-xs font-bold text-brand-green uppercase tracking-wider">Premium Content</div>
+                        <h3 class="text-xl font-bold text-slate-900">Video Ad (CPV)</h3>
+                        <p class="text-slate-400 text-sm">Interactive video loops served directly inside platform content streams.</p>
+                        <div class="pt-4 border-t border-slate-100 flex items-baseline gap-1">
+                            <span class="text-3xl font-extrabold text-slate-950" id="p-video">150</span>
+                            <span class="text-sm font-semibold text-slate-400" id="c-video">UGX</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                        <div class="text-xs font-bold text-indigo-500 uppercase tracking-wider">Viral Distribution</div>
+                        <h3 class="text-xl font-bold text-slate-900">Social Repost</h3>
+                        <p class="text-slate-400 text-sm">Automated influencer network broadcast for maximum virality.</p>
+                        <div class="pt-4 border-t border-slate-100 flex items-baseline gap-1">
+                            <span class="text-3xl font-extrabold text-slate-950" id="p-social">37,500</span>
+                            <span class="text-sm font-semibold text-slate-400" id="c-social">UGX</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p class="text-sm">&copy; 2026 AfriAd Africa. All rights reserved.</p>
+        </section>
+    </main>
+
+    <footer class="bg-slate-100 border-t border-slate-200/60 py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-400 text-sm">
+            <p>&copy; 2026 AfriAd Technologies. All rights reserved.</p>
         </div>
     </footer>
 
-    <div id="authModal" class="fixed inset-0 bg-brand-dark/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl relative border border-slate-100">
-            <button onclick="toggleAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-
-            <h2 id="modalTitle" class="text-2xl font-bold text-brand-dark mb-6">Create Advertiser Account</h2>
-            <div id="authAlert" class="hidden p-3 rounded-xl text-sm mb-4"></div>
-
-            <form id="authForm" class="space-y-4">
-                <div id="usernameField">
-                    <label class="block text-sm font-semibold text-slate-700 mb-1">Company / Username</label>
-                    <input type="text" id="authUsername" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="e.g., AfricaTech Corp">
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-1">Email Address</label>
-                    <input type="email" id="authEmail" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="name@company.com">
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-1">Password</label>
-                    <input type="password" id="authPassword" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="••••••••">
-                </div>
-                <button type="submit" id="authSubmitBtn" class="w-full bg-brand-primary text-white py-3.5 rounded-xl font-semibold hover:bg-emerald-600 transition-all shadow-md mt-2">
-                    Sign Up
-                </button>
-            </form>
-
-            <p class="text-sm text-slate-500 text-center mt-6">
-                <span id="modalToggleText">Already have an account?</span>
-                <button onclick="switchAuthMode()" id="modalToggleBtn" class="text-brand-primary font-semibold hover:underline ml-1">Log In</button>
-            </p>
-        </div>
-    </div>
-
     <script>
-        lucide.createIcons();
+        const PRICES = {
+            UGX: { classified: "7,500", banner: "112", video: "150", social: "37,500" },
+            KES: { classified: "260", banner: "3.9", video: "5.2", social: "1,300" },
+            TZS: { classified: "5,200", banner: "78", video: "104", social: "26,000" },
+            RWF: { classified: "2,600", banner: "39", video: "52", social: "13,000" },
+            ZAR: { classified: "37", banner: "0.55", video: "0.74", social: "185" }
+        };
 
-        // REFRESH THIS LINE: Change this URL to your exact production Render address!
-        // Make sure it includes the /api subroute and has NO trailing slash!
-        const API_BASE_URL = 'https://afriad-central-backend.onrender.com/api'; 
-        
-        let currentMode = 'register'; 
+        function updatePricingDisplay(currency) {
+            document.querySelectorAll('.curr-tab').forEach(btn => {
+                btn.className = "curr-tab px-4 py-2 text-sm font-semibold rounded-lg text-slate-500 hover:text-slate-800 transition-all";
+            });
+            event.target.className = "curr-tab px-4 py-2 text-sm font-bold rounded-lg bg-brand-dark text-white shadow-sm transition-all";
 
-        function toggleAuthModal() {
-            const modal = document.getElementById('authModal');
-            modal.classList.toggle('hidden');
-            clearAlert();
-        }
+            document.getElementById('p-classified').innerText = PRICES[currency].classified;
+            document.getElementById('p-banner').innerText = PRICES[currency].banner;
+            document.getElementById('p-video').innerText = PRICES[currency].video;
+            document.getElementById('p-social').innerText = PRICES[currency].social;
 
-        function openAuthModal(mode) {
-            currentMode = mode;
-            const modalTitle = document.getElementById('modalTitle');
-            const usernameField = document.getElementById('usernameField');
-            const submitBtn = document.getElementById('authSubmitBtn');
-            const toggleText = document.getElementById('modalToggleText');
-            const toggleBtn = document.getElementById('modalToggleBtn');
+            document.getElementById('c-classified').innerText = currency;
+            document.getElementById('c-banner').innerText = currency;
+            document.getElementById('c-video').innerText = currency;
+            document.getElementById('c-social').innerText = currency;
 
-            if (mode === 'login') {
-                modalTitle.innerText = 'Welcome Back';
-                usernameField.classList.add('hidden');
-                submitBtn.innerText = 'Log In';
-                toggleText.innerText = "Don't have an account?";
-                toggleBtn.innerText = 'Sign Up';
-            } else {
-                modalTitle.innerText = 'Create Advertiser Account';
-                usernameField.classList.remove('hidden');
-                submitBtn.innerText = 'Sign Up';
-                toggleText.innerText = 'Already have an account?';
-                toggleBtn.innerText = 'Log In';
-            }
-            toggleAuthModal();
-        }
-
-        function switchAuthMode() {
-            const mode = currentMode === 'register' ? 'login' : 'register';
-            toggleAuthModal(); 
-            openAuthModal(mode); 
-        }
-
-        function showAlert(message, isSuccess = false) {
-            const alert = document.getElementById('authAlert');
-            alert.innerText = message;
-            alert.classList.remove('hidden', 'bg-red-50', 'text-red-600', 'bg-emerald-50', 'text-emerald-600');
-            
-            if (isSuccess) {
-                alert.classList.add('bg-emerald-50', 'text-emerald-600');
-            } else {
-                alert.classList.add('bg-red-50', 'text-red-600');
+            if (currency === 'UGX') {
+                document.getElementById('hero-spend-amount').innerText = "UGX 1,500,000";
+            } else if (currency === 'KES') {
+                document.getElementById('hero-spend-amount').innerText = "KES 52,000";
+            } else if (currency === 'TZS') {
+                document.getElementById('hero-spend-amount').innerText = "TZS 1,040,000";
+            } else if (currency === 'RWF') {
+                document.getElementById('hero-spend-amount').innerText = "RWF 520,000";
+            } else if (currency === 'ZAR') {
+                document.getElementById('hero-spend-amount').innerText = "ZAR 7,400";
             }
         }
-
-        function clearAlert() {
-            document.getElementById('authAlert').classList.add('hidden');
-        }
-
-        document.getElementById('authForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            clearAlert();
-
-            const username = document.getElementById('authUsername').value;
-            const email = document.getElementById('authEmail').value;
-            const password = document.getElementById('authPassword').value;
-
-            const endpoint = currentMode === 'register' ? '/auth/register' : '/auth/login';
-            
-            const payload = { email, password };
-            if (currentMode === 'register') {
-                payload.username = username;
-                payload.role = 'advertiser'; 
-            }
-
-            try {
-                const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                const data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(data.error || 'Server processing error occurred.');
-                }
-
-                if (currentMode === 'register') {
-                    showAlert('Account created! Switching to Login...', true);
-                    setTimeout(() => switchAuthMode(), 1500);
-                } else {
-                    showAlert('Success! Forwarding to your dashboard...', true);
-                    
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-
-                    setTimeout(() => {
-                        window.location.href = '/dashboard.html'; 
-                    }, 1000);
-                }
-
-            } catch (error) {
-                showAlert(`Connection failed. Make sure your live backend API link is correctly pasted inside index.html. Details: ${error.message}`, false);
-            }
-        });
     </script>
 </body>
 </html>

@@ -3,459 +3,300 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-Currency Advertiser Dashboard | AfriAd</title>
+    <title>Advertiser Dashboard - AfriAd Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         brand: {
-                            primary: '#10B981', // Emerald Green
-                            dark: '#0F172A',    // Deep Slate
-                            accent: '#F59E0B'  // Amber/Gold
+                            orange: '#FF5A00',
+                            green: '#00B25C',
+                            dark: '#0F172A',
+                            slate: '#1E293B'
                         }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-</head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
-
-    <script>
-        const token = localStorage.getItem('token');
-        const user = JSON.parse(localStorage.getItem('user'));
-
-        if (!token || !user || user.role !== 'advertiser') {
-            window.location.href = 'index.html';
+    <style>
+        .double-a-left {
+            transform: skewX(-8deg);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-    </script>
+        .double-a-right {
+            transform: skewX(-8deg);
+            mix-blend-mode: multiply;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .logo-hover-zone:hover .double-a-left {
+            transform: skewX(-12deg) scale(1.05);
+        }
+        .logo-hover-zone:hover .double-a-right {
+            transform: skewX(-4deg) scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col font-sans antialiased">
 
-    <header class="bg-white border-b border-slate-100 sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="bg-brand-primary text-white p-2 rounded-xl flex items-center justify-center relative shadow-sm">
-                    <span class="text-xl font-black tracking-tighter leading-none">AA</span>
-                    <div class="absolute -top-1 -right-1 bg-brand-accent text-brand-dark p-0.5 rounded-full">
-                        <i data-lucide="megaphone" class="w-3 h-3"></i>
-                    </div>
+    <header class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="index.html" class="logo-hover-zone flex items-center gap-3 cursor-pointer select-none">
+                <div class="relative w-11 h-11 flex items-center justify-center">
+                    <div class="double-a-left absolute left-1 w-6 h-9 border-[3.5px] border-brand-orange rounded-t-xl rounded-b-[3px] border-b-0"></div>
+                    <div class="double-a-right absolute right-1 w-6 h-9 border-[3.5px] border-brand-green rounded-t-xl rounded-b-[3px] border-b-0"></div>
+                    <div class="absolute top-[55%] left-0.5 w-[38px] h-1 bg-gradient-to-r from-brand-orange to-brand-green rounded-full z-10"></div>
                 </div>
-                <span class="text-xl font-bold tracking-tight text-brand-dark">AfriAd<span class="text-brand-primary">-advertiser</span></span>
-            </div>
+                <span class="text-2xl font-extrabold tracking-tight text-white">
+                    Afri<span class="text-brand-orange">Ad</span>
+                </span>
+            </a>
 
-            <div class="flex items-center space-x-6">
-                <div class="text-right hidden sm:block">
-                    <p class="font-bold text-brand-dark" id="headerUsername">Advertiser</p>
-                    <p class="text-xs text-slate-400" id="headerEmail">business@afriad.com</p>
-                </div>
-                <button onclick="handleLogout()" class="flex items-center space-x-2 bg-red-50 text-red-600 px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-red-100 transition-colors">
-                    <i data-lucide="log-out" class="w-4 h-4"></i>
-                    <span>Logout</span>
-                </button>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-semibold rounded-xl border border-slate-700 transition-all">
+                    ← Back to Landing Page
+                </a>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        <div class="lg:col-span-2 space-y-8">
+    <main class="flex-1 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             
-            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-4">
-                <div class="flex justify-between items-center">
-                    <h3 class="font-bold text-brand-dark text-lg flex items-center gap-2">
-                        <i data-lucide="wallet" class="text-brand-primary"></i>
-                        <span>Your Multi-Currency Wallets</span>
-                    </h3>
-                    <button onclick="toggleDepositModal()" class="bg-brand-primary hover:bg-emerald-600 text-white text-xs px-3 py-2 rounded-lg font-bold flex items-center gap-1.5 shadow-sm transition-all">
-                        <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
-                        Fund Wallet
-                    </button>
+            <div>
+                <h1 class="text-3xl font-extrabold text-white">Advertiser Dashboard</h1>
+                <p class="text-slate-400 text-sm">Monitor budget reserves, deposit funds instantly, and scale your active ad inventory.</p>
+            </div>
+
+            <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+                <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-800">
+                    <span class="text-xs text-slate-400 uppercase font-semibold">UGX Wallet</span>
+                    <div class="text-xl sm:text-2xl font-bold text-white mt-1">1,250,000.00</div>
                 </div>
-                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3" id="walletsContainer">
-                    <div class="bg-slate-50 p-3 rounded-xl text-center border border-slate-100">
-                        <p class="text-xs text-slate-400 font-semibold">UGX</p>
-                        <p class="text-sm font-bold text-slate-800" id="bal-ugx">0.00</p>
-                    </div>
-                    <div class="bg-slate-50 p-3 rounded-xl text-center border border-slate-100">
-                        <p class="text-xs text-slate-400 font-semibold">KES</p>
-                        <p class="text-sm font-bold text-slate-800" id="bal-kes">0.00</p>
-                    </div>
-                    <div class="bg-slate-50 p-3 rounded-xl text-center border border-slate-100">
-                        <p class="text-xs text-slate-400 font-semibold">TZS</p>
-                        <p class="text-sm font-bold text-slate-800" id="bal-tzs">0.00</p>
-                    </div>
-                    <div class="bg-slate-50 p-3 rounded-xl text-center border border-slate-100">
-                        <p class="text-xs text-slate-400 font-semibold">RWF</p>
-                        <p class="text-sm font-bold text-slate-800" id="bal-rwf">0.00</p>
-                    </div>
-                    <div class="bg-slate-50 p-3 rounded-xl text-center border border-slate-100 col-span-2 sm:col-span-1">
-                        <p class="text-xs text-slate-400 font-semibold">ZAR</p>
-                        <p class="text-sm font-bold text-slate-800" id="bal-zar">0.00</p>
-                    </div>
+                <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-800">
+                    <span class="text-xs text-slate-400 uppercase font-semibold">KES Wallet</span>
+                    <div class="text-xl sm:text-2xl font-bold text-white mt-1">45,000.00</div>
+                </div>
+                <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-800">
+                    <span class="text-xs text-slate-400 uppercase font-semibold">TZS Wallet</span>
+                    <div class="text-xl sm:text-2xl font-bold text-white mt-1">920,000.00</div>
+                </div>
+                <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-800">
+                    <span class="text-xs text-slate-400 uppercase font-semibold">RWF Wallet</span>
+                    <div class="text-xl sm:text-2xl font-bold text-white mt-1">180,000.00</div>
+                </div>
+                <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-800 col-span-2 lg:col-span-1">
+                    <span class="text-xs text-slate-400 uppercase font-semibold">ZAR Wallet</span>
+                    <div class="text-xl sm:text-2xl font-bold text-white mt-1">2,400.00</div>
                 </div>
             </div>
 
-            <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm space-y-6">
-                <div class="border-b border-slate-100 pb-4">
-                    <h3 class="text-xl font-bold text-brand-dark flex items-center gap-2">
-                        <i data-lucide="plus-circle" class="text-brand-primary"></i>
-                        <span>Create Live Campaign</span>
-                    </h3>
-                    <p class="text-sm text-slate-500 mt-1">Submit your ad properties. Rates are calculated dynamically based on target currency structures.</p>
-                </div>
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                
+                <div class="lg:col-span-7 bg-slate-800/40 p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-6">
+                    <h2 class="text-xl font-bold text-white">New Production Campaign</h2>
 
-                <div id="campaignAlert" class="hidden p-4 rounded-xl text-sm font-semibold"></div>
-
-                <form id="campaignForm" class="space-y-5">
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">Campaign Title</label>
-                        <input type="text" id="campaignTitle" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="e.g., Kampala Fashion Expo Banner Promo">
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <form id="campaign-upload-form" class="space-y-4" onsubmit="handleCampaignSubmit(event)">
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Ad Format Type</label>
-                            <select id="campaignType" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-brand-primary">
-                                <option value="classified">Classified Listings (Flat Weekly)</option>
-                                <option value="banner_cpc">Website Banner Ads (CPC)</option>
-                                <option value="video_ad">Video Ads (CPV)</option>
-                                <option value="social_repost">Social Media Repost (Flat Pool)</option>
+                            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-2">Campaign Format Type</label>
+                            <select id="form-campaign-type" class="w-full h-12 bg-slate-900 border border-slate-700 rounded-xl px-4 text-white focus:ring-2 focus:ring-brand-orange outline-none transition-all">
+                                <option value="classified">Classified Ad</option>
+                                <option value="banner_cpc">Banner (CPC)</option>
+                                <option value="video_ad">Video Ad (CPV)</option>
+                                <option value="social_repost">Social Repost</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Target Media/Link URL</label>
-                            <input type="url" id="mediaUrl" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="https://example.com/promo-image.jpg">
-                        </div>
-                    </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Billing Currency</label>
-                            <select id="currency" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-brand-primary">
+                            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-2">Campaign Title</label>
+                            <input type="text" id="form-title" placeholder="e.g. Premium Fast Charging Cables" required class="w-full h-12 bg-slate-900 border border-slate-700 rounded-xl px-4 text-white placeholder-slate-500 focus:ring-2 focus:ring-brand-orange outline-none transition-all">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-2">Target Country</label>
+                                <select id="form-country" class="w-full h-12 bg-slate-900 border border-slate-700 rounded-xl px-4 text-white focus:ring-2 focus:ring-brand-orange outline-none transition-all">
+                                    <option value="Uganda">Uganda</option>
+                                    <option value="Kenya">Kenya</option>
+                                    <option value="Tanzania">Tanzania</option>
+                                    <option value="Rwanda">Rwanda</option>
+                                    <option value="South Africa">South Africa</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-2">Billing Currency</label>
+                                <select id="form-currency" class="w-full h-12 bg-slate-900 border border-slate-700 rounded-xl px-4 text-white focus:ring-2 focus:ring-brand-orange outline-none transition-all">
+                                    <option value="UGX">UGX</option>
+                                    <option value="KES">KES</option>
+                                    <option value="TZS">TZS</option>
+                                    <option value="RWF">RWF</option>
+                                    <option value="ZAR">ZAR</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-2">Media Creative Upload</label>
+                            <div class="border-2 border-dashed border-slate-700 hover:border-brand-orange rounded-2xl p-6 text-center cursor-pointer relative transition-all group">
+                                <input type="file" id="form-media-file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onchange="previewUploadName(this)">
+                                <div class="space-y-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-500 group-hover:text-brand-orange mx-auto transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                                    </svg>
+                                    <div class="text-sm font-semibold text-slate-300" id="upload-label-text">Select a media file to upload</div>
+                                    <div class="text-xs text-slate-500">Supports PNG, JPG, or MP4 video (Max 10MB)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-2">Target Units (e.g. Clicks/Views)</label>
+                            <input type="number" id="form-units" value="100" min="1" required class="w-full h-12 bg-slate-900 border border-slate-700 rounded-xl px-4 text-white placeholder-slate-500 focus:ring-2 focus:ring-brand-orange outline-none transition-all">
+                        </div>
+
+                        <button type="submit" class="w-full h-14 bg-brand-orange hover:bg-orange-600 text-white font-bold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
+                            <span>Deduct Wallet & Create Campaign</span>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="bg-slate-800/40 p-6 rounded-3xl border border-slate-800 space-y-4">
+                        <h2 class="text-lg font-bold text-white">Deposit Local Funds</h2>
+                        <div class="space-y-3">
+                            <input type="number" id="deposit-amount" placeholder="Amount" class="w-full h-11 bg-slate-900 border border-slate-700 rounded-lg px-3 text-white">
+                            <select id="deposit-currency" class="w-full h-11 bg-slate-900 border border-slate-700 rounded-lg px-3 text-white">
                                 <option value="UGX">UGX (Uganda)</option>
                                 <option value="KES">KES (Kenya)</option>
                                 <option value="TZS">TZS (Tanzania)</option>
                                 <option value="RWF">RWF (Rwanda)</option>
                                 <option value="ZAR">ZAR (South Africa)</option>
                             </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Target Country</label>
-                            <input type="text" id="targetCountry" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="e.g., Uganda">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1" id="unitsLabel">Units (Clicks/Views)</label>
-                            <input type="number" id="totalUnits" min="1" value="1" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary">
+                            <input type="text" id="deposit-phone" placeholder="Phone Number" class="w-full h-11 bg-slate-900 border border-slate-700 rounded-lg px-3 text-white">
+                            <button onclick="handleDepositSubmit()" class="w-full h-11 bg-brand-green hover:bg-green-600 text-white font-bold rounded-lg transition-all">
+                                Request Push Prompt
+                            </button>
                         </div>
                     </div>
 
-                    <div class="bg-slate-50 p-4 rounded-xl flex justify-between items-center border border-slate-100">
-                        <div>
-                            <p class="text-xs text-slate-400 font-semibold uppercase">Estimated Campaign Budget</p>
-                            <p class="text-sm text-slate-500" id="unitPricingBreakdown">Unit rate: 0.00</p>
+                    <div class="bg-slate-800/40 p-6 rounded-3xl border border-slate-800 space-y-4">
+                        <h2 class="text-lg font-bold text-white">Ad Delivery Status Queue</h2>
+                        <div class="space-y-3" id="active-campaign-list">
+                            <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 flex items-center justify-between">
+                                <div>
+                                    <div class="font-bold text-sm text-slate-200">UGX classified loop</div>
+                                    <div class="text-xs text-slate-500">1 Unit · Active</div>
+                                </div>
+                                <span class="px-2 py-0.5 bg-brand-green/20 text-brand-green text-xs font-semibold rounded-full">APPROVED</span>
+                            </div>
                         </div>
-                        <div class="text-right">
-                            <p class="text-2xl font-black text-brand-primary" id="estimatedTotalCost">0.00 UGX</p>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="w-full bg-brand-dark text-white py-4 rounded-xl font-semibold hover:bg-slate-800 transition-all shadow-md flex items-center justify-center space-x-2">
-                        <i data-lucide="zap" class="w-4 h-4"></i>
-                        <span>Lock Funds & Submit Campaign</span>
-                    </button>
-                </form>
-            </div>
-
-        </div>
-
-        <div class="space-y-8">
-            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-4">
-                <h4 class="font-bold text-brand-dark flex items-center gap-2 border-b border-slate-50 pb-2">
-                    <i data-lucide="table" class="text-brand-primary"></i>
-                    <span>Official Pricing Index</span>
-                </h4>
-                <div class="text-xs text-slate-600 space-y-4">
-                    <div>
-                        <p class="font-bold text-brand-dark mb-1">Classified Listings (Flat Weekly)</p>
-                        <p>7,500 UGX | 260 KES | 5,200 TZS | 2,600 RWF | 37 ZAR</p>
-                    </div>
-                    <div>
-                        <p class="font-bold text-brand-dark mb-1">Website Banner Ads (Cost-Per-Click)</p>
-                        <p>112 UGX | 3.9 KES | 78 TZS | 39 RWF | 0.55 ZAR</p>
-                    </div>
-                    <div>
-                        <p class="font-bold text-brand-dark mb-1">Video Ads (Cost-Per-View)</p>
-                        <p>150 UGX | 5.2 KES | 104 TZS | 52 RWF | 0.74 ZAR</p>
-                    </div>
-                    <div>
-                        <p class="font-bold text-brand-dark mb-1">Social Repost (Flat Pool)</p>
-                        <p>37,500 UGX | 1,300 KES | 26,000 TZS | 13,000 RWF | 185 ZAR</p>
                     </div>
                 </div>
+
             </div>
         </div>
-
     </main>
 
-    <div id="depositModal" class="fixed inset-0 bg-brand-dark/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl relative border border-slate-100">
-            <button onclick="toggleDepositModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-
-            <h2 class="text-2xl font-bold text-brand-dark mb-2 flex items-center gap-2">
-                <i data-lucide="smartphone" class="text-brand-primary"></i>
-                <span>Fund Ad Wallet</span>
-            </h2>
-            <p class="text-xs text-slate-500 mb-6">Enter details to initiate a simulated Local Mobile Money prompt.</p>
-
-            <div id="depositAlert" class="hidden p-3 rounded-xl text-sm mb-4"></div>
-
-            <form id="depositForm" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-1">Currency to Fund</label>
-                    <select id="depositCurrency" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-brand-primary">
-                        <option value="UGX">UGX (Uganda Shilling)</option>
-                        <option value="KES">KES (Kenya Shilling)</option>
-                        <option value="TZS">TZS (Tanzanian Shilling)</option>
-                        <option value="RWF">RWF (Rwandan Franc)</option>
-                        <option value="ZAR">ZAR (South African Rand)</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-1">Amount</label>
-                    <input type="number" step="0.01" id="depositAmount" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="e.g., 50000">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">Mobile Network</label>
-                        <select id="depositNetwork" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-brand-primary">
-                            <option value="MTN">MTN MoMo</option>
-                            <option value="Airtel">Airtel Money</option>
-                            <option value="M-Pesa">Safaricom M-Pesa</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">Phone Number</label>
-                        <input type="text" id="depositPhone" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-primary" placeholder="256770000000">
-                    </div>
-                </div>
-                <button type="submit" id="depositSubmitBtn" class="w-full bg-brand-primary text-white py-3.5 rounded-xl font-semibold hover:bg-emerald-600 transition-all shadow-md mt-2">
-                    Approve Mock Transaction
-                </button>
-            </form>
+    <footer class="bg-slate-950 border-t border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
+            <p>&copy; 2026 AfriAd Technologies. All rights reserved.</p>
         </div>
-    </div>
-
-    <footer class="bg-brand-dark text-slate-400 py-6 border-t border-slate-800 text-center mt-auto">
-        <p class="text-sm">&copy; 2026 AfriAd Africa. All rights reserved.</p>
     </footer>
 
     <script>
-        lucide.createIcons();
+        // Display File Names in Custom Upload Area
+        function previewUploadName(input) {
+            const fileName = input.files[0] ? input.files[0].name : "Select a media file to upload";
+            document.getElementById('upload-label-text').innerText = fileName;
+        }
 
-        const API_BASE_URL = 'https://afriad-central-backend.onrender.com/api';
+        // Handle File-based Campaign Posting via Native Multipart Form Data
+        async function handleCampaignSubmit(event) {
+            event.preventDefault();
 
-        const PRICING_MATRIX = {
-            classified: { UGX: 7500, KES: 260, TZS: 5200, RWF: 2600, ZAR: 37 },
-            banner_cpc: { UGX: 112, KES: 3.9, TZS: 78, RWF: 39, ZAR: 0.55 },
-            video_ad: { UGX: 150, KES: 5.2, TZS: 104, RWF: 52, ZAR: 0.74 },
-            social_repost: { UGX: 37500, KES: 1300, TZS: 26000, RWF: 13000, ZAR: 185 }
-        };
+            const formData = new FormData();
+            formData.append('advertiserId', 1); // Mock user profile
+            formData.append('campaignType', document.getElementById('form-campaign-type').value);
+            formData.append('title', document.getElementById('form-title').value);
+            formData.append('targetCountry', document.getElementById('form-country').value);
+            formData.append('currency', document.getElementById('form-currency').value);
+            formData.append('totalUnits', document.getElementById('form-units').value);
 
-        // Initialize User Interface Data
-        document.addEventListener('DOMContentLoaded', () => {
-            if (user) {
-                document.getElementById('headerUsername').innerText = user.username;
-                document.getElementById('headerEmail').innerText = user.email;
-                fetchAndDisplayWallet();
+            const fileField = document.getElementById('form-media-file');
+            if (fileField.files[0]) {
+                formData.append('mediaFile', fileField.files[0]);
             }
-            calculateCost();
-        });
-
-        function fetchAndDisplayWallet() {
-            document.getElementById('bal-ugx').innerText = parseFloat(user.ugx_balance || 0).toLocaleString();
-            document.getElementById('bal-kes').innerText = parseFloat(user.kes_balance || 0).toLocaleString();
-            document.getElementById('bal-tzs').innerText = parseFloat(user.tzs_balance || 0).toLocaleString();
-            document.getElementById('bal-rwf').innerText = parseFloat(user.rwf_balance || 0).toLocaleString();
-            document.getElementById('bal-zar').innerText = parseFloat(user.zar_balance || 0).toLocaleString();
-        }
-
-        // Live calculation and form rule handling
-        const campaignTypeSelect = document.getElementById('campaignType');
-        const currencySelect = document.getElementById('currency');
-        const unitsInput = document.getElementById('totalUnits');
-
-        function calculateCost() {
-            const campaignType = campaignTypeSelect.value;
-            const currency = currencySelect.value;
-            let units = parseInt(unitsInput.value) || 1;
-
-            if (campaignType === 'classified' || campaignType === 'social_repost') {
-                unitsInput.disabled = true;
-                unitsInput.value = 1;
-                units = 1;
-            } else {
-                unitsInput.disabled = false;
-            }
-
-            const unitRate = PRICING_MATRIX[campaignType][currency];
-            const totalCost = unitRate * units;
-
-            document.getElementById('unitPricingBreakdown').innerText = `Unit rate: ${unitRate} ${currency}`;
-            document.getElementById('estimatedTotalCost').innerText = `${totalCost.toLocaleString()} ${currency}`;
-        }
-
-        campaignTypeSelect.addEventListener('change', calculateCost);
-        currencySelect.addEventListener('change', calculateCost);
-        unitsInput.addEventListener('input', calculateCost);
-
-        function handleLogout() {
-            localStorage.clear();
-            window.location.href = 'index.html';
-        }
-
-        function toggleDepositModal() {
-            const modal = document.getElementById('depositModal');
-            modal.classList.toggle('hidden');
-            document.getElementById('depositAlert').classList.add('hidden');
-        }
-
-        function showAlert(message, isSuccess = false) {
-            const alert = document.getElementById('campaignAlert');
-            alert.innerText = message;
-            alert.classList.remove('hidden', 'bg-red-50', 'text-red-600', 'bg-emerald-50', 'text-emerald-600');
-            if (isSuccess) {
-                alert.classList.add('bg-emerald-50', 'text-emerald-600');
-            } else {
-                alert.classList.add('bg-red-50', 'text-red-600');
-            }
-        }
-
-        // Handle Deposit Simulation API and Simulated Webhook trigger
-        document.getElementById('depositForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const alertBox = document.getElementById('depositAlert');
-            alertBox.classList.add('hidden');
-
-            const currency = document.getElementById('depositCurrency').value;
-            const amount = parseFloat(document.getElementById('depositAmount').value);
-            const phoneNumber = document.getElementById('depositPhone').value;
-            const network = document.getElementById('depositNetwork').value;
 
             try {
-                // 1. Send the initial deposit intent to the server
-                const res = await fetch(`${API_BASE_URL}/payments/deposit`, {
+                const response = await fetch('/api/campaigns/create', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
                     },
-                    body: JSON.stringify({ amount, currency, phoneNumber, network })
-                });
-
-                const data = await res.json();
-                if (!res.ok) throw new Error(data.error || "Deposit initialization failed.");
-
-                // 2. Trigger the mock platform webhook directly to credit our balance instantly!
-                const webhookRes = await fetch(`${API_BASE_URL}/payments/webhook`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        advertiserId: user.id,
-                        amount: amount,
-                        currency: currency,
-                        status: 'successful'
-                    })
-                });
-
-                const webhookData = await webhookRes.json();
-                if (!webhookRes.ok) throw new Error(webhookData.error || "Mock webhook processing failed.");
-
-                // 3. Update local client UI wallet references
-                const balanceKey = `${currency.toLowerCase()}_balance`;
-                user[balanceKey] = parseFloat(user[balanceKey] || 0) + amount;
-                localStorage.setItem('user', JSON.stringify(user));
-                fetchAndDisplayWallet();
-
-                alertBox.innerText = `Successfully funded ${amount} ${currency}!`;
-                alertBox.classList.remove('hidden', 'bg-red-50', 'text-red-600');
-                alertBox.classList.add('bg-emerald-50', 'text-emerald-600');
-
-                setTimeout(() => {
-                    toggleDepositModal();
-                    document.getElementById('depositForm').reset();
-                }, 1500);
-
-            } catch (err) {
-                alertBox.innerText = err.message;
-                alertBox.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-600');
-                alertBox.classList.add('bg-red-50', 'text-red-600');
-            }
-        });
-
-        // Campaign Submission
-        document.getElementById('campaignForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            showAlert('');
-
-            const selectedCurrency = currencySelect.value;
-            const walletKey = `${selectedCurrency.toLowerCase()}_balance`;
-            const currentWalletBalance = parseFloat(user[walletKey] || 0);
-
-            const campaignType = campaignTypeSelect.value;
-            const units = parseInt(unitsInput.value) || 1;
-            const unitRate = PRICING_MATRIX[campaignType][selectedCurrency];
-            const totalCampaignCost = unitRate * units;
-
-            // Strict Validation checks before sending
-            if (totalCampaignCost > currentWalletBalance) {
-                showAlert(`Insufficient wallet balance. You need ${totalCampaignCost.toLocaleString()} ${selectedCurrency}, but only have ${currentWalletBalance.toLocaleString()} ${selectedCurrency}. Please fund your wallet.`);
-                return;
-            }
-
-            const payload = {
-                advertiserId: user.id,
-                campaignType,
-                title: document.getElementById('campaignTitle').value,
-                mediaUrl: document.getElementById('mediaUrl').value,
-                targetCountry: document.getElementById('targetCountry').value,
-                currency: selectedCurrency,
-                totalUnits: units
-            };
-
-            try {
-                const response = await fetch(`${API_BASE_URL}/campaigns/create`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(payload)
+                    body: formData
                 });
 
                 const data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(data.error || 'Server rejected campaign request.');
+                if (response.ok) {
+                    alert('Campaign Created Successfully! Pending admin review.');
+                    
+                    const list = document.getElementById('active-campaign-list');
+                    const item = document.createElement('div');
+                    item.className = "p-4 bg-slate-900 rounded-xl border border-slate-800 flex items-center justify-between";
+                    item.innerHTML = `
+                        <div>
+                            <div class="font-bold text-sm text-slate-200">${data.campaign.title}</div>
+                            <div class="text-xs text-slate-500">${data.campaign.total_units} Units · Pending</div>
+                        </div>
+                        <span class="px-2 py-0.5 bg-yellow-500/20 text-yellow-400 text-xs font-semibold rounded-full">PENDING</span>
+                    `;
+                    list.prepend(item);
+                } else {
+                    alert('Transaction error: ' + data.error);
                 }
-
-                showAlert('Success! Campaign locked and submitted for admin review.', true);
-                
-                // Dynamically update UI wallet reference balance from returned server data
-                user[walletKey] = parseFloat(data.newBalance);
-                localStorage.setItem('user', JSON.stringify(user));
-                fetchAndDisplayWallet();
-
-                document.getElementById('campaignForm').reset();
-                calculateCost();
-
             } catch (err) {
-                showAlert(err.message, false);
+                console.error(err);
+                alert('Connection error occurred while processing campaign upload.');
             }
-        });
+        }
+
+        // Handle Local Mobile Money Push Triggers
+        async function handleDepositSubmit() {
+            const amount = document.getElementById('deposit-amount').value;
+            const currency = document.getElementById('deposit-currency').value;
+            const phone = document.getElementById('deposit-phone').value;
+
+            if(!amount || !phone) {
+                alert('Please enter amount and phone number.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/payments/deposit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    },
+                    body: JSON.stringify({ amount, currency, phoneNumber: phone, network: 'MTN' })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert(data.message + "\nTransaction reference ID: " + data.transactionId);
+                } else {
+                    alert(data.error);
+                }
+            } catch(err) {
+                alert('Connection to local mobile money API failed.');
+            }
+        }
     </script>
 </body>
 </html>
