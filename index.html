@@ -217,6 +217,18 @@
     </footer>
 
     <script>
+        // SMART AUTO-DETECT RESOLVER
+        // Re-routes connections automatically if opened locally or via dev servers (e.g., Live Server)
+        function getApiUrl(endpoint) {
+            const isLocalOrDevServer = window.location.protocol === 'file:' || 
+                                       ['5500', '5173', '3000'].includes(window.location.port);
+            
+            // Set this to your actual running backend port if it's different from 5000!
+            const BACKEND_PORT = 'http://localhost:5000'; 
+            
+            return isLocalOrDevServer ? `${BACKEND_PORT}${endpoint}` : endpoint;
+        }
+
         const PRICES = {
             UGX: { classified: "7,500", banner: "112", video: "150", social: "37,500" },
             KES: { classified: "260", banner: "3.9", video: "5.2", social: "1,300" },
@@ -284,8 +296,8 @@
             }
 
             try {
-                // Reverted to pure relative route paths to align directly with your backend design
-                const response = await fetch(`/api/auth/${endpoint}`, {
+                // Uses smart fallback URLs dynamically
+                const response = await fetch(getApiUrl(`/api/auth/${endpoint}`), {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(bodyData)
